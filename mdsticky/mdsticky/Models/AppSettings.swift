@@ -7,11 +7,20 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 enum ColorSchemeMode: String, CaseIterable {
     case system
     case light
     case dark
+
+    var resolved: ColorScheme? {
+        switch self {
+        case .system: return nil
+        case .light: return .light
+        case .dark: return .dark
+        }
+    }
 }
 
 final class AppSettings: ObservableObject {

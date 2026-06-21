@@ -11,6 +11,7 @@ import MarkdownUI
 struct StickyNoteView: View {
     @Bindable var note: StickyNote
     @Environment(\.modelContext) private var modelContext
+    @StateObject private var settings = AppSettings.shared
     @State private var isEditing: Bool = false
     @State private var content: String = ""
     @State private var activeTextView: NSTextView?
@@ -47,6 +48,8 @@ struct StickyNoteView: View {
             try? NoteStorageService.shared.save(content: newValue, for: note)
             try? modelContext.save()
         }
+        .environment(\.locale, Locale(identifier: settings.language))
+        .preferredColorScheme(settings.colorSchemeMode.resolved)
     }
 
     private var titleBar: some View {

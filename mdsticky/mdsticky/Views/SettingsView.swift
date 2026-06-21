@@ -78,6 +78,8 @@ struct SettingsView: View {
             }
         }
         .frame(minWidth: 540, minHeight: 460)
+        .environment(\.locale, Locale(identifier: settings.language))
+        .preferredColorScheme(settings.colorSchemeMode.resolved)
     }
 
     // MARK: - General
