@@ -44,6 +44,11 @@ struct mdstickyApp: App {
         .defaultSize(width: 700, height: 500)
         .windowResizability(.contentSize)
         .commands {
+            CommandGroup(replacing: .appInfo) {
+                Button("关于 mdsticky") {
+                    showAboutPanel()
+                }
+            }
             CommandGroup(after: .newItem) {
                 Button("新建便利贴") {
                     newStickyNote()
@@ -66,6 +71,18 @@ struct mdstickyApp: App {
         for note in notes {
             WindowManager.shared.showWindow(for: note, in: context)
         }
+    }
+
+    private func showAboutPanel() {
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0"
+        let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "1"
+        let credits = NSAttributedString(string: "作者: charleypeng\nGitHub: https://github.com/charleypeng")
+        NSApplication.shared.orderFrontStandardAboutPanel(options: [
+            .applicationName: "mdsticky",
+            .applicationVersion: "\(version) (\(build))",
+            .copyright: "© 2026 charleypeng",
+            .credits: credits
+        ])
     }
 
     private func newStickyNote() {
