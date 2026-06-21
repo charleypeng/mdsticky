@@ -17,7 +17,7 @@ struct StickyNoteView: View {
 
     private let textColor = Color(white: 0.18)
     private let secondaryColor = Color(white: 0.38)
-    private let buttonColor = Color(white: 0.18)
+    private let buttonColor = Color(white: 0.15)
 
     var body: some View {
         ZStack {
@@ -79,11 +79,11 @@ struct StickyNoteView: View {
                     }
                 } label: {
                     Image(systemName: "paintpalette")
-                        .font(.system(size: 11))
+                        .font(.system(size: 12))
                 }
                 .menuStyle(.borderlessButton)
-                .frame(width: 20)
-                .foregroundStyle(buttonColor)
+                .frame(width: 22)
+                .tint(buttonColor)
 
                 Button(action: toggleEdit) {
                     Image(systemName: isEditing ? "eye" : "pencil")
