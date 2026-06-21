@@ -203,12 +203,36 @@ struct MarkdownContentView: View {
 extension Theme {
     static func mdsticky(textColor: Color) -> Theme {
         // Start from .gitHub so heading1...heading6 carry their default
-        // font sizes. We then override only .text to match the note's
+        // font sizes. We then override .text to match the note's
         // 13pt base font and the caller-supplied text color.
+        // Code (inline and block) is forced to dark-background / white-text
+        // so it remains readable on any note color the user picks.
         Theme.gitHub
             .text {
                 FontSize(13)
                 ForegroundColor(textColor)
+            }
+            .code {
+                FontFamilyVariant(.monospaced)
+                FontSize(.em(0.85))
+                ForegroundColor(.white)
+                BackgroundColor(Color.black.opacity(0.55))
+            }
+            .codeBlock { configuration in
+                ScrollView(.horizontal) {
+                    configuration.label
+                        .fixedSize(horizontal: false, vertical: true)
+                        .relativeLineSpacing(.em(0.225))
+                        .markdownTextStyle {
+                            FontFamilyVariant(.monospaced)
+                            FontSize(.em(0.85))
+                            ForegroundColor(.white)
+                        }
+                        .padding(12)
+                }
+                .background(Color.black.opacity(0.55))
+                .clipShape(RoundedRectangle(cornerRadius: 6))
+                .markdownMargin(top: 0, bottom: 16)
             }
     }
 }
