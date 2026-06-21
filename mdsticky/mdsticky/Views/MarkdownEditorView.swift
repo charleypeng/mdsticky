@@ -56,7 +56,15 @@ struct MarkdownEditorView: NSViewRepresentable {
         textView.string = content
 
         scrollView.documentView = textView
-        onTextViewReady(textView)
+
+        // Defer the callback to the next runloop tick. Calling it directly
+        // from makeNSView mutates a @State binding on the parent view
+        // *while SwiftUI is evaluating the view body*, which triggers
+        // "Modifying state during view update" and can cause the mutation
+        // to be dropped — leaving the parent with a nil reference.
+        DispatchQueue.main.async {
+            onTextViewReady(textView)
+        }
 
         if autoFocus {
             DispatchQueue.main.async { [weak textView] in

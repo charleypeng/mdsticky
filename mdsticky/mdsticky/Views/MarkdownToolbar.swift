@@ -43,6 +43,7 @@ struct MarkdownToolbar: View {
                         Image(systemName: entry.icon)
                             .font(.system(size: 12, weight: .medium))
                             .frame(width: 24, height: 22)
+                            .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
                     .foregroundStyle(Color(white: 0.15))
@@ -61,6 +62,7 @@ struct MarkdownToolbar: View {
                         Image(systemName: entry.icon)
                             .font(.system(size: 12, weight: .medium))
                             .frame(width: 24, height: 22)
+                            .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
                     .foregroundStyle(Color(white: 0.15))
@@ -95,6 +97,7 @@ struct MarkdownToolbar: View {
         }
         .menuStyle(.borderlessButton)
         .frame(width: 30)
+        .contentShape(Rectangle())
         .help("标题级别")
     }
 }
