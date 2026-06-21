@@ -82,8 +82,22 @@ struct MarkdownToolbar: View {
                 Button {
                     onAction(.heading(level: level))
                 } label: {
-                    Text("H\(level)")
-                        .foregroundStyle(Color(white: 0.15))
+                    Group {
+                        if level == 1 {
+                            Text(verbatim: "Aa").font(.title3)
+                        } else if level == 2 {
+                            Text(verbatim: "Aa").font(.title3)
+                        } else if level == 3 {
+                            Text(verbatim: "Aa").font(.headline)
+                        } else if level == 4 {
+                            Text(verbatim: "Aa").font(.subheadline)
+                        } else if level == 5 {
+                            Text(verbatim: "Aa").font(.caption)
+                        } else {
+                            Text(verbatim: "Aa").font(.caption2)
+                        }
+                    }
+                    .foregroundStyle(Color(white: 0.15))
                 }
             }
         } label: {

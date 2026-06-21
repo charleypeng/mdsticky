@@ -519,6 +519,7 @@
       }
     },
     "H%lld" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
