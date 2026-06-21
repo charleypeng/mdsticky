@@ -48,9 +48,10 @@ struct StickyNoteView: View {
             try? NoteStorageService.shared.save(content: newValue, for: note)
             try? modelContext.save()
         }
+        .id("sticky-\(settings.language)")
         .environment(\.locale, Locale(identifier: settings.language))
         .preferredColorScheme(settings.colorSchemeMode.resolved)
-    }
+}
 
     private var titleBar: some View {
         HStack {

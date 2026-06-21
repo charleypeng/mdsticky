@@ -78,6 +78,7 @@ struct SettingsView: View {
             }
         }
         .frame(minWidth: 540, minHeight: 460)
+        .id("settings-\(settings.language)")
         .environment(\.locale, Locale(identifier: settings.language))
         .preferredColorScheme(settings.colorSchemeMode.resolved)
     }

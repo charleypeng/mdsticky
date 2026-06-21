@@ -10,6 +10,7 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \StickyNote.createdAt, order: .reverse) private var notes: [StickyNote]
     @State private var selectedNote: StickyNote?
+    @StateObject private var settings = AppSettings.shared
 
     var body: some View {
         NavigationSplitView {
@@ -60,6 +61,8 @@ struct ContentView: View {
                     .foregroundStyle(.secondary)
             }
         }
+        .id("content-\(settings.language)")
+        .environment(\.locale, Locale(identifier: settings.language))
     }
 
     private func addNote() {
