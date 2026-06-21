@@ -51,7 +51,7 @@ struct mdstickyApp: App {
     }
 
     var body: some Scene {
-        Window("Sticky Notes", id: "manager") {
+        Window(tr("Sticky Notes"), id: "manager") {
             ContentView()
                 .frame(minWidth: 500, minHeight: 350)
                 .preferredColorScheme(colorScheme(from: settings.colorSchemeMode))
@@ -69,19 +69,19 @@ struct mdstickyApp: App {
         .environment(\.locale, Locale(identifier: settings.language))
         .commands {
             CommandGroup(replacing: .appInfo) {
-                Button("About mdsticky") {
+                Button(tr("About mdsticky")) {
                     showAboutPanel()
                 }
             }
             CommandGroup(after: .newItem) {
-                Button("New Note") {
+                Button(tr("New Note")) {
                     newStickyNote()
                 }
                 .keyboardShortcut("n")
             }
             CommandGroup(after: .appTermination) {
                 Divider()
-                Button("Settings") {
+                Button(tr("Settings")) {
                     SettingsWindowController.shared.show()
                 }
                 .keyboardShortcut(",")
@@ -141,12 +141,12 @@ struct MenuBarView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Button("New Note") {
+            Button(tr("New Note")) {
                 createNote()
                 dismiss()
             }
 
-            Button("Manage Notes") {
+            Button(tr("Manage Notes")) {
                 openWindow(id: "manager")
                 NSApp.activate(ignoringOtherApps: true)
                 dismiss()
@@ -154,7 +154,7 @@ struct MenuBarView: View {
 
             Divider()
 
-            Button("Sync Now") {
+            Button(tr("Sync Now")) {
                 Task { await SyncServiceProvider.shared.syncAll() }
                 dismiss()
             }
@@ -162,7 +162,7 @@ struct MenuBarView: View {
 
             Divider()
 
-            Button("Quit") {
+            Button(tr("Quit")) {
                 NSApplication.shared.terminate(nil)
             }
         }

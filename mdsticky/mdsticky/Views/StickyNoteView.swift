@@ -194,7 +194,7 @@ struct MarkdownContentView: View {
 
     var body: some View {
         if text.isEmpty {
-            Text("Double-click to edit…")
+            Text(verbatim: tr("Double-click to edit…"))
                 .font(.system(size: 13))
                 .foregroundStyle(secondaryColor)
         } else {

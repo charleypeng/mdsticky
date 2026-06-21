@@ -20,31 +20,31 @@ struct ContentView: View {
                         NoteRowView(note: note)
                     }
                     .contextMenu {
-                        Button(note.isVisible ? "Hide" : "Show") {
+                        Button(note.isVisible ? tr("Hide") : tr("Show")) {
                             toggleVisibility(for: note)
                         }
-                        Button(note.isPinned ? "Unpin" : "Pin") {
+                        Button(note.isPinned ? tr("Unpin") : tr("Pin")) {
                             togglePin(for: note)
                         }
                         Divider()
-                        Button("Delete", role: .destructive) {
+                        Button(tr("Delete"), role: .destructive) {
                             delete(note: note)
                         }
                     }
                 }
                 .onDelete(perform: deleteNotes)
             }
-            .navigationTitle("Sticky Notes")
+            .navigationTitle(tr("Sticky Notes"))
             .navigationSplitViewColumnWidth(min: 220, ideal: 260)
             .toolbar {
                 ToolbarItem {
                     Button(action: addNote) {
-                        Label("New Note", systemImage: "plus")
+                        Label(tr("New Note"), systemImage: "plus")
                     }
                 }
                 ToolbarItem {
                     Button(action: showSettings) {
-                        Label("Settings", systemImage: "gear")
+                        Label(tr("Settings"), systemImage: "gear")
                     }
                 }
             }
@@ -57,7 +57,7 @@ struct ContentView: View {
                 NoteDetailView(note: note)
                     .id(note.id)
             } else {
-                Text("Select a Note")
+                Text(verbatim: tr("Select a Note"))
                     .foregroundStyle(.secondary)
             }
         }
@@ -160,7 +160,7 @@ struct NoteDetailView: View {
                 Text(note.title)
                     .font(.title2)
                 Spacer()
-                Button(note.isVisible ? "Hide" : "Show") {
+                Button(note.isVisible ? tr("Hide") : tr("Show")) {
                     toggleVisibility()
                 }
             }

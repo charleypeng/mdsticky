@@ -10,15 +10,15 @@ enum MarkdownToolbarAction {
 struct MarkdownToolbar: View {
     let onAction: (MarkdownToolbarAction) -> Void
 
-    private let inlineActions: [(icon: String, label: LocalizedStringKey, action: MarkdownToolbarAction)] = [
+    private let inlineActions: [(icon: String, label: String, action: MarkdownToolbarAction)] = [
         ("bold",          "Bold",   .inline(prefix: "**",  suffix: "**",    placeholder: "bold text")),
         ("italic",        "Italic",   .inline(prefix: "*",   suffix: "*",     placeholder: "italic text")),
         ("strikethrough", "Strikethrough", .inline(prefix: "~~",  suffix: "~~",    placeholder: "strikethrough text")),
-        ("chevron.left.forwardslash.chevron.right", "Code", .inline(prefix: "`", suffix: "`", placeholder: "代码")),
+        ("chevron.left.forwardslash.chevron.right", "Code", .inline(prefix: "`", suffix: "`", placeholder: "code")),
         ("link",          "Link",   .inline(prefix: "[",   suffix: "](url)", placeholder: "link text")),
     ]
 
-    private let blockActions: [(icon: String, label: LocalizedStringKey, action: MarkdownToolbarAction)] = [
+    private let blockActions: [(icon: String, label: String, action: MarkdownToolbarAction)] = [
         ("list.bullet", "Bullet List", .block(prefix: "\n- ")),
         ("list.number", "Numbered List", .block(prefix: "\n1. ")),
         ("checklist",   "Checklist",   .block(prefix: "\n- [ ] ")),
@@ -66,7 +66,7 @@ struct MarkdownToolbar: View {
                     }
                     .buttonStyle(.plain)
                     .foregroundStyle(Color(white: 0.15))
-                    .help(entry.label)
+                    .help(tr(entry.label))
                 }
             }
             .padding(.horizontal, 4)
@@ -104,6 +104,6 @@ struct MarkdownToolbar: View {
         // falls back to the system accent color (usually blue). Tint forces
         // it to match the rest of the toolbar's dark gray.
         .tint(Color(white: 0.15))
-        .help("Heading Level")
+        .help(tr("Heading Level"))
     }
 }

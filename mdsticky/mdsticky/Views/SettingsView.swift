@@ -15,7 +15,7 @@ enum SettingsTab: CaseIterable {
     case sync
     case languageAppearance
 
-    var label: LocalizedStringKey {
+    var key: String {
         switch self {
         case .general: return "General"
         case .sync: return "Sync"
@@ -50,7 +50,7 @@ struct SettingsView: View {
                         VStack(spacing: 2) {
                             Image(systemName: tab.icon)
                                 .font(.system(size: 16))
-                            Text(tab.label)
+                            Text(verbatim: tr(tab.key))
                                 .font(.caption2)
                         }
                         .frame(maxWidth: .infinity)
@@ -87,8 +87,8 @@ struct SettingsView: View {
 
     private var generalTab: some View {
         Form {
-            Section("Startup") {
-                Toggle("Launch at login and restore desktop notes", isOn: $settings.autoStart)
+            Section(tr("Startup")) {
+                Toggle(tr("Launch at login and restore desktop notes"), isOn: $settings.autoStart)
                     .onChange(of: settings.autoStart) { _, enabled in
                         AutoStartService.shared.setEnabled(enabled)
                     }
@@ -103,7 +103,7 @@ struct SettingsView: View {
     private var languageAppearanceTab: some View {
         Form {
             Section {
-                Picker("Language", selection: $settings.language) {
+                Picker(selection: $settings.language) {
                     Text("简体中文").tag("zh-Hans")
                     Text("English").tag("en")
                     Text("繁體中文").tag("zh-Hant")
@@ -114,21 +114,25 @@ struct SettingsView: View {
                     Text("Español").tag("es")
                     Text("Português (Brasil)").tag("pt-BR")
                     Text("Русский").tag("ru")
+                } label: {
+                    Text(verbatim: tr("Language"))
                 }
                 .pickerStyle(.menu)
             } header: {
-                Text("Language")
+                Text(verbatim: tr("Language"))
             }
 
             Section {
-                Picker("Appearance", selection: $settings.colorSchemeMode) {
+                Picker(selection: $settings.colorSchemeMode) {
                     Text("System").tag(ColorSchemeMode.system)
                     Text("Light").tag(ColorSchemeMode.light)
                     Text("Dark").tag(ColorSchemeMode.dark)
+                } label: {
+                    Text(verbatim: tr("Appearance"))
                 }
                 .pickerStyle(.segmented)
             } header: {
-                Text("Appearance")
+                Text(verbatim: tr("Appearance"))
             }
         }
         .formStyle(.grouped)
@@ -140,18 +144,20 @@ struct SettingsView: View {
     private var syncTab: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                Text("Sync Services")
+                Text(verbatim: tr("Sync Services"))
                     .font(.headline)
                 Spacer()
-                Menu("Add Service") {
+                Menu {
                     ForEach(SyncServiceType.allCases) { type in
                         Button(type.displayName) { provider.addService(type: type) }
                     }
+                } label: {
+                    Text(verbatim: tr("Add Service"))
                 }
                 .menuStyle(.borderlessButton)
                 .frame(width: 80)
 
-                Button("Sync All") {
+                Button(tr("Sync All")) {
                     Task { await provider.syncAll() }
                 }
                 .disabled(provider.enabledConfigs.isEmpty)
@@ -162,7 +168,7 @@ struct SettingsView: View {
             if provider.configs.isEmpty {
                 VStack(spacing: 8) {
                     Image(systemName: "tray").font(.title).foregroundStyle(.secondary)
-                    Text("No sync services yet. Click \"Add Service\" to start.").foregroundStyle(.secondary)
+                    Text(verbatim: tr("No sync services yet. Click \"Add Service\" to start.")).foregroundStyle(.secondary)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
@@ -177,17 +183,20 @@ struct SettingsView: View {
                 }
             }
         }
-        .confirmationDialog("Confirm Delete", isPresented: .init(
+        .confirmationDialog(tr("Confirm Delete"), isPresented: .init(
             get: { deleteTarget != nil },
             set: { if !$0 { deleteTarget = nil } }
         )) {
-            Button("Delete", role: .destructive) {
+            Button(tr("Delete"), role: .destructive) {
                 if let target = deleteTarget { provider.removeService(target) }
                 deleteTarget = nil
             }
-            Button("Cancel", role: .cancel) { deleteTarget = nil }
+            Button(tr("Cancel"), role: .cancel) { deleteTarget = nil }
         } message: {
-            Text("Are you sure you want to delete the sync service \"\(deleteTarget?.displayName ?? "")\"? This action cannot be undone.")
+            Text(verbatim: {
+                let fmt = tr("Are you sure you want to delete the sync service \"%@\"? This action cannot be undone.")
+                return String(format: fmt, deleteTarget?.displayName ?? "")
+            }())
         }
     }
 
@@ -202,7 +211,7 @@ struct SettingsView: View {
                     .font(.title3)
                     .foregroundStyle(config.isEnabled ? Color.accentColor : .secondary)
 
-                TextField("Service Name", text: .init(
+                TextField(tr("Service Name"), text: .init(
                     get: { config.name },
                     set: { var c = config; c.name = $0; provider.updateConfig(c) }
                 ))
@@ -229,11 +238,13 @@ struct SettingsView: View {
 
             // Footer
             HStack {
-                Picker("Sync Frequency", selection: .init(
+                Picker(selection: .init(
                     get: { config.frequency },
                     set: { var c = config; c.frequency = $0; provider.updateConfig(c) }
                 )) {
                     ForEach(SyncFrequency.allCases) { f in Text(f.displayName).tag(f) }
+                } label: {
+                    Text(verbatim: tr("Sync Frequency"))
                 }
                 .pickerStyle(.segmented)
                 .controlSize(.small)
@@ -242,12 +253,12 @@ struct SettingsView: View {
                 Spacer()
 
                 HStack(spacing: 4) {
-                    Text(config.isPrimary ? "Primary Service" : "Not Primary")
+                    Text(verbatim: config.isPrimary ? tr("Primary Service") : tr("Not Primary"))
                         .font(.caption)
                         .foregroundStyle(config.isPrimary ? .green : .secondary)
 
                     if config.isEnabled {
-                        Button(config.isPrimary ? "" : "Set as Primary") {
+                        Button(config.isPrimary ? "" : tr("Set as Primary")) {
                             provider.setPrimary(config)
                         }
                         .buttonStyle(.borderless)
@@ -260,7 +271,7 @@ struct SettingsView: View {
 
                 HStack(spacing: 6) {
                     if let date = config.lastSyncDate {
-                        Text("Last: \(date, format: .dateTime.hour().minute())")
+                        (Text(verbatim: tr("Last: ")) + Text(date, format: .dateTime.hour().minute()))
                             .font(.caption2)
                             .foregroundStyle(.secondary)
                     }
@@ -319,11 +330,11 @@ struct SettingsView: View {
 
     private func webdavFields(for config: SyncServiceConfig) -> some View {
         VStack(spacing: 6) {
-            labeledField("Server", binding(for: config, keyPath: \.webdavURL), placeholder: "https://dav.example.com/remote.php/dav/files/user/")
+            labeledField(tr("Server"), binding(for: config, keyPath: \.webdavURL), placeholder: "https://dav.example.com/remote.php/dav/files/user/")
             HStack(spacing: 8) {
-                labeledField("Username", binding(for: config, keyPath: \.webdavUsername), placeholder: "")
+                labeledField(tr("Username"), binding(for: config, keyPath: \.webdavUsername), placeholder: "")
                     .frame(maxWidth: .infinity)
-                labeledField("Password", binding(for: config, keyPath: \.webdavPassword), placeholder: "", secure: true)
+                labeledField(tr("Password"), binding(for: config, keyPath: \.webdavPassword), placeholder: "", secure: true)
                     .frame(maxWidth: .infinity)
             }
         }
@@ -331,9 +342,9 @@ struct SettingsView: View {
 
     private func localFolderFields(for config: SyncServiceConfig) -> some View {
         HStack(spacing: 8) {
-            labeledField("Path", binding(for: config, keyPath: \.localFolderPath), placeholder: "~/Documents/mdsticky_backup")
+            labeledField(tr("Path"), binding(for: config, keyPath: \.localFolderPath), placeholder: "~/Documents/mdsticky_backup")
 
-            Button("Choose Folder…") {
+            Button(tr("Choose Folder…")) {
                 selectFolder(for: config)
             }
             .buttonStyle(.borderedProminent)
@@ -345,8 +356,8 @@ struct SettingsView: View {
     private func sambaFields(for config: SyncServiceConfig) -> some View {
         VStack(spacing: 6) {
             HStack(spacing: 8) {
-                labeledField("Path", binding(for: config, keyPath: \.sambaPath), placeholder: "/Volumes/ShareName/folder")
-                Button("选择...") { selectFolder(for: config) }
+                labeledField(tr("Path"), binding(for: config, keyPath: \.sambaPath), placeholder: "/Volumes/ShareName/folder")
+                Button(tr("Browse…")) { selectFolder(for: config) }
                     .buttonStyle(.borderedProminent)
                     .controlSize(.small)
                     .font(.caption)
@@ -428,7 +439,7 @@ struct SettingsView: View {
             if isTesting.contains(config.id) {
                 ProgressView().controlSize(.small).frame(width: 14, height: 14)
             } else {
-                Text("Test").font(.caption)
+                Text(verbatim: tr("Test")).font(.caption)
             }
         }
         .buttonStyle(.borderless)
@@ -438,7 +449,7 @@ struct SettingsView: View {
 
     private func testConnection(_ config: SyncServiceConfig) {
         isTesting.insert(config.id)
-        testStatus[config.id] = "Testing…"
+            testStatus[config.id] = tr("Testing…")
         let cfg = config
         Task {
             let svc = provider.service(for: cfg) ?? {
@@ -449,7 +460,7 @@ struct SettingsView: View {
                 }
             }()
             let ok = await svc.testConnection()
-            testStatus[config.id] = ok ? "Connection Successful" : "Connection Failed"
+            testStatus[config.id] = ok ? tr("Connection Successful") : tr("Connection Failed")
             isTesting.remove(config.id)
         }
     }
