@@ -99,6 +99,10 @@ struct MarkdownToolbar: View {
         .menuStyle(.borderlessButton)
         .frame(width: 30)
         .contentShape(Rectangle())
+        // macOS's Menu rendering ignores foregroundStyle on the label and
+        // falls back to the system accent color (usually blue). Tint forces
+        // it to match the rest of the toolbar's dark gray.
+        .tint(Color(white: 0.15))
         .help("标题级别")
     }
 }
