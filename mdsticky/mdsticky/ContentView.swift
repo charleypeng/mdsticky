@@ -157,17 +157,28 @@ struct NoteDetailView: View {
                 }
             }
 
-            TextEditor(text: $content)
-                .font(.system(size: 13))
-                .border(Color.secondary.opacity(0.2), width: 1)
-                .onChange(of: content) { _, newValue in
-                    try? NoteStorageService.shared.save(content: newValue, for: note)
-                    try? modelContext.save()
-                }
+            VSplitView {
+                TextEditor(text: $content)
+                    .font(.system(size: 13))
+                    .border(Color.secondary.opacity(0.2), width: 1)
+
+                MarkdownContentView(
+                    text: content,
+                    textColor: .primary,
+                    secondaryColor: .secondary
+                )
+                .frame(minHeight: 80)
+                .padding(8)
+                .background(Color.secondary.opacity(0.04))
+            }
         }
         .padding()
         .onAppear {
             content = (try? NoteStorageService.shared.load(for: note)) ?? ""
+        }
+        .onChange(of: content) { _, newValue in
+            try? NoteStorageService.shared.save(content: newValue, for: note)
+            try? modelContext.save()
         }
     }
 
