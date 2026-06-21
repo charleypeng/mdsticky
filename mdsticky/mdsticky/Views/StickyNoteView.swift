@@ -161,7 +161,7 @@ struct StickyNoteView: View {
     }
 
     private func insertAtCursor(prefix: String, suffix: String, placeholder: String, selectPlaceholder: Bool) {
-        guard let tv = activeTextView, tv.window != nil else {
+        guard let tv = activeTextView else {
             content += prefix + placeholder + suffix
             return
         }
