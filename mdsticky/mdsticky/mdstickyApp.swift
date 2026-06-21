@@ -7,6 +7,15 @@ import SwiftUI
 import SwiftData
 import AppKit
 
+private func enforceSingleInstance() {
+    let bundleID = Bundle.main.bundleIdentifier ?? "charleypeng.mdsticky"
+    let running = NSRunningApplication.runningApplications(withBundleIdentifier: bundleID)
+    if running.count > 1 {
+        running.first?.activate(options: .activateIgnoringOtherApps)
+        exit(0)
+    }
+}
+
 @main
 struct mdstickyApp: App {
     static var sharedContainer: ModelContainer!
@@ -25,6 +34,10 @@ struct mdstickyApp: App {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
+
+    init() {
+        enforceSingleInstance()
+    }
 
     @State private var hasRestored = false
 
