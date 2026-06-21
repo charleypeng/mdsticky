@@ -10,24 +10,74 @@ import ServiceManagement
 import AppKit
 import UniformTypeIdentifiers
 
+enum SettingsTab: CaseIterable {
+    case general
+    case sync
+    case languageAppearance
+
+    var label: LocalizedStringKey {
+        switch self {
+        case .general: return "通用"
+        case .sync: return "同步"
+        case .languageAppearance: return "语言与外观"
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .general: return "gear"
+        case .sync: return "arrow.triangle.2.circlepath"
+        case .languageAppearance: return "globe"
+        }
+    }
+}
+
 struct SettingsView: View {
     @StateObject private var settings = AppSettings.shared
     @StateObject private var provider = SyncServiceProvider.shared
+    @State private var selectedTab: SettingsTab = .general
     @State private var testStatus: [String: String] = [:]
     @State private var isTesting: Set<String> = []
     @State private var deleteTarget: SyncServiceConfig? = nil
 
     var body: some View {
-        TabView {
-            generalTab
-                .tabItem { Label("通用", systemImage: "gear") }
-            syncTab
-                .tabItem { Label("同步", systemImage: "arrow.triangle.2.circlepath") }
-            languageAppearanceTab
-                .tabItem { Label("语言与外观", systemImage: "globe") }
+        VStack(spacing: 0) {
+            HStack(spacing: 0) {
+                ForEach(SettingsTab.allCases, id: \.self) { tab in
+                    Button {
+                        selectedTab = tab
+                    } label: {
+                        VStack(spacing: 2) {
+                            Image(systemName: tab.icon)
+                                .font(.system(size: 16))
+                            Text(tab.label)
+                                .font(.caption2)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 6)
+                        .background(selectedTab == tab ? Color.accentColor.opacity(0.12) : Color.clear)
+                        .cornerRadius(6)
+                    }
+                    .buttonStyle(.plain)
+                    .foregroundStyle(selectedTab == tab ? Color.accentColor : Color.primary)
+                }
+            }
+            .padding(.horizontal, 12)
+            .padding(.top, 2)
+            .padding(.bottom, 4)
+
+            Divider()
+
+            switch selectedTab {
+            case .general:
+                generalTab
+            case .sync:
+                syncTab
+            case .languageAppearance:
+                languageAppearanceTab
+            }
         }
         .frame(minWidth: 540, minHeight: 460)
-        .padding(.vertical, 8)
     }
 
     // MARK: - General
