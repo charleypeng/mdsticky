@@ -52,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11AC48A82FE7FF8600506E5F /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +113,7 @@
 			);
 			name = mdsticky;
 			packageProductDependencies = (
+				11AC48A92FE7FF8600506E5F /* MarkdownUI */,
 			);
 			productName = mdsticky;
 			productReference = 11B35C322FE7D0D300ADA6BE /* mdsticky.app */;
@@ -195,6 +197,9 @@
 			);
 			mainGroup = 11B35C292FE7D0D300ADA6BE;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				11AC48A62FE7FF8600506E5F /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 11B35C332FE7D0D300ADA6BE /* Products */;
 			projectDirPath = "";
@@ -573,6 +578,29 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		11AC48A62FE7FF8600506E5F /* XCRemoteSwiftPackageReference "swift-markdown-ui" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gonzalezreal/swift-markdown-ui";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.1;
+			};
+		};
+/* Begin PBXBuildFile section */
+		11AC48A82FE7FF8600506E5F /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 11AC48A92FE7FF8600506E5F /* MarkdownUI */; };
+/* End PBXBuildFile section */
+
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		11AC48A92FE7FF8600506E5F /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11AC48A62FE7FF8600506E5F /* XCRemoteSwiftPackageReference "swift-markdown-ui" */;
+			productName = MarkdownUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 11B35C2A2FE7D0D300ADA6BE /* Project object */;
 }

@@ -6,6 +6,7 @@
 import SwiftUI
 import SwiftData
 import AppKit
+import MarkdownUI
 
 struct StickyNoteView: View {
     @Bindable var note: StickyNote
@@ -187,43 +188,25 @@ struct MarkdownContentView: View {
     let textColor: Color
     let secondaryColor: Color
 
-    private var rendered: Text {
-        let lines = text.components(separatedBy: "\n")
-        var combined = Text("")
-        for (index, line) in lines.enumerated() {
-            combined = combined + parseLine(line)
-            if index < lines.count - 1 {
-                combined = combined + Text("\n")
-            }
-        }
-        return combined
-    }
-
     var body: some View {
         if text.isEmpty {
             Text("双击编辑...")
                 .font(.system(size: 13))
                 .foregroundStyle(secondaryColor)
         } else {
-            rendered
-                .font(.system(size: 13))
-                .foregroundStyle(textColor)
+            Markdown(text)
+                .markdownTheme(.mdsticky(textColor: textColor))
         }
     }
+}
 
-    private func parseLine(_ line: String) -> Text {
-        if line.isEmpty { return Text("") }
-        if let attr = try? AttributedString(
-            markdown: line,
-            options: AttributedString.MarkdownParsingOptions(
-                allowsExtendedAttributes: true,
-                interpretedSyntax: .full,
-                failurePolicy: .returnPartiallyParsedIfPossible
-            )
-        ) {
-            return Text(attr)
-        }
-        return Text(line)
+extension Theme {
+    static func mdsticky(textColor: Color) -> Theme {
+        Theme()
+            .text {
+                FontSize(13)
+                ForegroundColor(textColor)
+            }
     }
 }
 
