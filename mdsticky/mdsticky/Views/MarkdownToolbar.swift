@@ -88,8 +88,9 @@ struct MarkdownToolbar: View {
             }
         } label: {
             HStack(spacing: 2) {
-                Image(systemName: "textformat.size")
-                    .font(.system(size: 11, weight: .medium))
+                Text("Aa")
+                    .font(.system(size: 11, weight: .semibold))
+                    .foregroundStyle(Color(white: 0.15))
                 Image(systemName: "chevron.down")
                     .font(.system(size: 8, weight: .bold))
             }

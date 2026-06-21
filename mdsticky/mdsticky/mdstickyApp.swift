@@ -79,6 +79,13 @@ struct mdstickyApp: App {
                 }
                 .keyboardShortcut("n")
             }
+            CommandGroup(after: .appTermination) {
+                Divider()
+                Button("Settings") {
+                    SettingsWindowController.shared.show()
+                }
+                .keyboardShortcut(",")
+            }
         }
 
         MenuBarExtra("mdsticky", systemImage: "note.text") {
