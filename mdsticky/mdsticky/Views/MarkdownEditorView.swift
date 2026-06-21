@@ -39,9 +39,19 @@ struct MarkdownEditorView: NSViewRepresentable {
         textView.backgroundColor = .clear
         textView.drawsBackground = false
         textView.textContainerInset = NSSize(width: 4, height: 8)
+
+        // Configure textContainer for vertical scrolling inside a fixed-width
+        // NSScrollView. containerSize.width = .greatestFiniteMagnitude lets
+        // the layout system compute it from the textView's current bounds.
+        textView.textContainer?.containerSize = NSSize(
+            width: CGFloat.greatestFiniteMagnitude,
+            height: CGFloat.greatestFiniteMagnitude
+        )
         textView.textContainer?.widthTracksTextView = true
         textView.isHorizontallyResizable = false
         textView.isVerticallyResizable = true
+        textView.autoresizingMask = [.width]
+
         textView.delegate = context.coordinator
         textView.string = content
 
