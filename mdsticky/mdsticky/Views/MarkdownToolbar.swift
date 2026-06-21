@@ -1,53 +1,70 @@
-//
-//  MarkdownToolbar.swift
-//  mdsticky
-//
-//  Horizontal toolbar for inserting markdown syntax.
-//
-
 import SwiftUI
 import AppKit
 
-struct MarkdownToolbarAction {
-    let icon: String
-    let label: String
-    let prefix: String
-    let suffix: String
-    let placeholder: String
+enum MarkdownToolbarAction {
+    case inline(prefix: String, suffix: String, placeholder: String)
+    case heading(level: Int)
+    case block(prefix: String)
 }
 
 struct MarkdownToolbar: View {
     let onAction: (MarkdownToolbarAction) -> Void
 
-    private let actions: [MarkdownToolbarAction] = [
-        MarkdownToolbarAction(icon: "bold",          label: "加粗",   prefix: "**",  suffix: "**",        placeholder: "粗体文字"),
-        MarkdownToolbarAction(icon: "italic",        label: "斜体",   prefix: "*",   suffix: "*",         placeholder: "斜体文字"),
-        MarkdownToolbarAction(icon: "strikethrough", label: "删除线", prefix: "~~",  suffix: "~~",        placeholder: "删除线文字"),
-        MarkdownToolbarAction(icon: "h.square",      label: "标题",   prefix: "\n# ", suffix: "",          placeholder: "标题"),
-        MarkdownToolbarAction(icon: "list.bullet",   label: "无序列表", prefix: "\n- ", suffix: "",        placeholder: "列表项"),
-        MarkdownToolbarAction(icon: "list.number",   label: "有序列表", prefix: "\n1. ", suffix: "",       placeholder: "列表项"),
-        MarkdownToolbarAction(icon: "checklist",     label: "复选框", prefix: "\n- [ ] ", suffix: "",    placeholder: "任务"),
-        MarkdownToolbarAction(icon: "link",          label: "链接",   prefix: "[",   suffix: "](url)",    placeholder: "链接文字"),
-        MarkdownToolbarAction(icon: "chevron.left.forwardslash.chevron.right", label: "代码", prefix: "`", suffix: "`", placeholder: "代码"),
-        MarkdownToolbarAction(icon: "curlybraces",   label: "代码块",  prefix: "\n```\n", suffix: "\n```\n", placeholder: "代码块"),
-        MarkdownToolbarAction(icon: "minus",         label: "分割线", prefix: "\n---\n", suffix: "",      placeholder: ""),
+    private let inlineActions: [(icon: String, label: String, action: MarkdownToolbarAction)] = [
+        ("bold",          "加粗",   .inline(prefix: "**",  suffix: "**",    placeholder: "粗体文字")),
+        ("italic",        "斜体",   .inline(prefix: "*",   suffix: "*",     placeholder: "斜体文字")),
+        ("strikethrough", "删除线", .inline(prefix: "~~",  suffix: "~~",    placeholder: "删除线文字")),
+        ("chevron.left.forwardslash.chevron.right", "代码", .inline(prefix: "`", suffix: "`", placeholder: "代码")),
+        ("link",          "链接",   .inline(prefix: "[",   suffix: "](url)", placeholder: "链接文字")),
+    ]
+
+    private let blockActions: [(icon: String, label: String, action: MarkdownToolbarAction)] = [
+        ("list.bullet", "无序列表", .block(prefix: "\n- ")),
+        ("list.number", "有序列表", .block(prefix: "\n1. ")),
+        ("checklist",   "复选框",   .block(prefix: "\n- [ ] ")),
+        ("curlybraces", "代码块",   .block(prefix: "\n```\n\n```\n")),
+        ("minus",       "分割线",   .block(prefix: "\n---\n")),
     ]
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 2) {
-                ForEach(actions.indices, id: \.self) { index in
-                    let action = actions[index]
+                headingDropdown
+
+                Divider()
+                    .frame(height: 16)
+                    .padding(.horizontal, 4)
+
+                ForEach(inlineActions.indices, id: \.self) { index in
+                    let entry = inlineActions[index]
                     Button {
-                        onAction(action)
+                        onAction(entry.action)
                     } label: {
-                        Image(systemName: action.icon)
+                        Image(systemName: entry.icon)
                             .font(.system(size: 12, weight: .medium))
                             .frame(width: 24, height: 22)
                     }
                     .buttonStyle(.plain)
                     .foregroundStyle(Color(white: 0.15))
-                    .help(action.label)
+                    .help(entry.label)
+                }
+
+                Divider()
+                    .frame(height: 16)
+                    .padding(.horizontal, 4)
+
+                ForEach(blockActions.indices, id: \.self) { index in
+                    let entry = blockActions[index]
+                    Button {
+                        onAction(entry.action)
+                    } label: {
+                        Image(systemName: entry.icon)
+                            .font(.system(size: 12, weight: .medium))
+                            .frame(width: 24, height: 22)
+                    }
+                    .buttonStyle(.plain)
+                    .foregroundStyle(Color(white: 0.15))
+                    .help(entry.label)
                 }
             }
             .padding(.horizontal, 4)
@@ -56,56 +73,28 @@ struct MarkdownToolbar: View {
         .background(Color.black.opacity(0.08))
         .overlay(Rectangle().frame(height: 1).foregroundStyle(Color.black.opacity(0.06)), alignment: .bottom)
     }
-}
 
-func performMarkdownAction(_ action: MarkdownToolbarAction, content: inout String) {
-    guard let textView = findActiveTextView() else {
-        content += action.prefix + action.placeholder + action.suffix
-        return
-    }
-
-    let selectedRange = textView.selectedRange()
-    let text = textView.string
-
-    if selectedRange.length > 0 {
-        let selectedText = (text as NSString).substring(with: selectedRange)
-        let replacement = action.prefix + selectedText + action.suffix
-        textView.insertText(replacement, replacementRange: selectedRange)
-        content = textView.string
-    } else {
-        let insertion = action.prefix + action.placeholder + action.suffix
-        let safePosition = min(selectedRange.location, (text as NSString).length)
-        textView.insertText(insertion, replacementRange: NSRange(location: safePosition, length: 0))
-        let selectStart = safePosition + action.prefix.count
-        textView.setSelectedRange(NSRange(location: selectStart, length: action.placeholder.count))
-        textView.scrollRangeToVisible(NSRange(location: selectStart, length: action.placeholder.count))
-        content = textView.string
-    }
-}
-
-private func findActiveTextView() -> NSTextView? {
-    // Try first responder of key window first
-    if let tv = NSApp.keyWindow?.firstResponder as? NSTextView, tv.isEditable, tv.isSelectable {
-        return tv
-    }
-    // Fall back to recursive search through all windows
-    for window in NSApp.windows {
-        if let tv = findTextView(in: window.contentView) {
-            return tv
+    private var headingDropdown: some View {
+        Menu {
+            ForEach(1...6, id: \.self) { level in
+                Button {
+                    onAction(.heading(level: level))
+                } label: {
+                    Text("H\(level)")
+                }
+            }
+        } label: {
+            HStack(spacing: 2) {
+                Image(systemName: "textformat.size")
+                    .font(.system(size: 11, weight: .medium))
+                Image(systemName: "chevron.down")
+                    .font(.system(size: 8, weight: .bold))
+            }
+            .frame(width: 30, height: 22)
+            .foregroundStyle(Color(white: 0.15))
         }
+        .menuStyle(.borderlessButton)
+        .frame(width: 30)
+        .help("标题级别")
     }
-    return nil
-}
-
-private func findTextView(in view: NSView?) -> NSTextView? {
-    guard let view else { return nil }
-    if let tv = view as? NSTextView, tv.isEditable, tv.isSelectable {
-        return tv
-    }
-    for subview in view.subviews {
-        if let found = findTextView(in: subview) {
-            return found
-        }
-    }
-    return nil
 }
