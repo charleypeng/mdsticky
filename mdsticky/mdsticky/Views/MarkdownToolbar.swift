@@ -87,15 +87,10 @@ struct MarkdownToolbar: View {
                 }
             }
         } label: {
-            HStack(spacing: 2) {
-                Text(verbatim: "Aa")
-                    .font(.system(size: 11, weight: .semibold))
-                    .foregroundStyle(Color(white: 0.15))
-                Image(systemName: "chevron.down")
-                    .font(.system(size: 8, weight: .bold))
-            }
-            .frame(width: 30, height: 22)
-            .foregroundStyle(Color(white: 0.15))
+            Text(verbatim: "Aa")
+                .font(.system(size: 11, weight: .semibold))
+                .foregroundStyle(Color(white: 0.15))
+                .frame(width: 30, height: 22)
         }
         .menuStyle(.borderlessButton)
         .frame(width: 30)
