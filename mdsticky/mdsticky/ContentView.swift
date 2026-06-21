@@ -49,7 +49,12 @@ struct ContentView: View {
             }
         } detail: {
             if let note = selectedNote {
+                // .id(note.id) forces SwiftUI to destroy and rebuild the
+                // view when the user picks a different row. Without this
+                // the @State `content` carries the previous note's text
+                // into the new view and onAppear only fires once.
                 NoteDetailView(note: note)
+                    .id(note.id)
             } else {
                 Text("选择一个便利贴")
                     .foregroundStyle(.secondary)
@@ -157,28 +162,22 @@ struct NoteDetailView: View {
                 }
             }
 
-            VSplitView {
-                TextEditor(text: $content)
-                    .font(.system(size: 13))
-                    .border(Color.secondary.opacity(0.2), width: 1)
-
+            // The management window is preview-only. To edit, the user
+            // opens the floating note window (or double-clicks a row in
+            // the sidebar, which already shows the floating window).
+            ScrollView {
                 MarkdownContentView(
                     text: content,
                     textColor: .primary,
                     secondaryColor: .secondary
                 )
-                .frame(minHeight: 80)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(8)
-                .background(Color.secondary.opacity(0.04))
             }
         }
         .padding()
         .onAppear {
             content = (try? NoteStorageService.shared.load(for: note)) ?? ""
-        }
-        .onChange(of: content) { _, newValue in
-            try? NoteStorageService.shared.save(content: newValue, for: note)
-            try? modelContext.save()
         }
     }
 
