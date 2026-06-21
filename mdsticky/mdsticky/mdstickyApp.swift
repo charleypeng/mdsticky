@@ -97,7 +97,7 @@ struct mdstickyApp: App {
     private func showAboutPanel() {
         let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0"
         let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "1"
-        let credits = NSAttributedString(string: "作者: charleypeng\nGitHub: https://github.com/charleypeng\n\n© 2026 charleypeng")
+        let credits = NSAttributedString(string: "\(tr("Author")): charleypeng\nGitHub: https://github.com/charleypeng\n\n© 2026 charleypeng")
         NSApplication.shared.orderFrontStandardAboutPanel(options: [
             .applicationName: "mdsticky",
             .applicationVersion: "\(version) (\(build))",
