@@ -41,10 +41,19 @@ struct mdstickyApp: App {
 
     @State private var hasRestored = false
 
+    private func colorScheme(from mode: ColorSchemeMode) -> ColorScheme? {
+        switch mode {
+        case .system: return nil
+        case .light: return .light
+        case .dark: return .dark
+        }
+    }
+
     var body: some Scene {
         Window("便利贴管理", id: "manager") {
             ContentView()
                 .frame(minWidth: 500, minHeight: 350)
+                .preferredColorScheme(colorScheme(from: AppSettings.shared.colorSchemeMode))
                 .onAppear {
                     if !hasRestored {
                         hasRestored = true
@@ -56,6 +65,7 @@ struct mdstickyApp: App {
         .modelContainer(sharedModelContainer)
         .defaultSize(width: 700, height: 500)
         .windowResizability(.contentSize)
+        .environment(\.locale, Locale(identifier: AppSettings.shared.language))
         .commands {
             CommandGroup(replacing: .appInfo) {
                 Button("关于 mdsticky") {
@@ -73,8 +83,10 @@ struct mdstickyApp: App {
         MenuBarExtra("mdsticky", systemImage: "note.text") {
             MenuBarView()
                 .frame(width: 220)
+                .preferredColorScheme(colorScheme(from: AppSettings.shared.colorSchemeMode))
         }
         .modelContainer(sharedModelContainer)
+        .environment(\.locale, Locale(identifier: AppSettings.shared.language))
     }
 
     private func restoreVisibleNotes() {
