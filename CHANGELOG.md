@@ -4,7 +4,27 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [1.1.0] — 2026-06-22
+
+### Added
+- i18n: runtime language switching (10 languages) via `tr()` + per-language bundle lookup
+- Color scheme: System / Light / Dark display modes
+- Settings window: General, Sync, Language & Appearance tabs
+- Sync services: WebDAV, local folder, SMB backends with per-service config
+- Single-instance enforcement with macOS 14+ deprecation fix
+- Author info in About panel with localized label
+
+### Changed
+- Source language migrated from zh-Hans to English; all hardcoded Chinese text replaced
+- String catalog (.xcstrings) rebuilt with English keys and zh-Hans translations
+- Manager window opened on-demand (no initial window) for unobtrusive startup
+- `environment(\.locale)` replaced with manual `.lproj` bundle lookup for reliable macOS i18n
+
+### Fixed
+- App icon padding for proper macOS display
+- Settings tab bar style (toolbar-style HStack replacing TabView)
+
+## [1.0.0] — 2026-06-21
 
 ### Added
 - Toolbar: heading-level dropdown (H1–H6) replaces the single heading button. Selecting a level inserts the matching prefix and places the cursor at the end of the prefix.
