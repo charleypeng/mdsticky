@@ -23,6 +23,8 @@ struct SettingsView: View {
                 .tabItem { Label("通用", systemImage: "gear") }
             syncTab
                 .tabItem { Label("同步", systemImage: "arrow.triangle.2.circlepath") }
+            languageAppearanceTab
+                .tabItem { Label("语言与外观", systemImage: "globe") }
         }
         .frame(minWidth: 540, minHeight: 460)
         .padding(.vertical, 8)
@@ -37,6 +39,43 @@ struct SettingsView: View {
                     .onChange(of: settings.autoStart) { _, enabled in
                         AutoStartService.shared.setEnabled(enabled)
                     }
+            }
+        }
+        .formStyle(.grouped)
+        .padding()
+    }
+
+    // MARK: - Language & Appearance
+
+    private var languageAppearanceTab: some View {
+        Form {
+            Section {
+                Picker("语言", selection: $settings.language) {
+                    Text("简体中文").tag("zh-Hans")
+                    Text("English").tag("en")
+                    Text("繁體中文").tag("zh-Hant")
+                    Text("日本語").tag("ja")
+                    Text("한국어").tag("ko")
+                    Text("Français").tag("fr")
+                    Text("Deutsch").tag("de")
+                    Text("Español").tag("es")
+                    Text("Português (Brasil)").tag("pt-BR")
+                    Text("Русский").tag("ru")
+                }
+                .pickerStyle(.menu)
+            } header: {
+                Text("语言")
+            }
+
+            Section {
+                Picker("显示模式", selection: $settings.colorSchemeMode) {
+                    Text("跟随系统").tag(ColorSchemeMode.system)
+                    Text("白天").tag(ColorSchemeMode.light)
+                    Text("夜晚").tag(ColorSchemeMode.dark)
+                }
+                .pickerStyle(.segmented)
+            } header: {
+                Text("显示模式")
             }
         }
         .formStyle(.grouped)
