@@ -1,82 +1,67 @@
 # mdsticky
 
-macOS 桌面 Markdown 便利贴应用。
+一款 macOS 便利贴应用：每个便利贴都是一个独立的悬浮彩色窗口，自带 Markdown 编辑与渲染。笔记以纯 `.md` 文件保存在本地，并可同步到自己的 WebDAV / 本地目录 / SMB 共享。
 
 ## 功能
 
-- **桌面便利贴** — 独立浮动窗口，拖拽移动，自由调整大小
-- **置顶** — 一键将便利贴置顶到所有窗口之上
-- **Markdown 编辑** — 双击切换编辑/展示模式，内置 Markdown 工具栏（加粗/斜体/标题/列表/链接/代码等 11 项）
-- **Markdown 渲染** — 原生 `AttributedString(markdown:)` 渲染，零外部依赖
-- **多色主题** — 7 种预设颜色（黄/绿/蓝/粉/橙/紫/灰）
-- **统一管理** — 管理页面列表/详情查看，右键菜单操作
-- **自动启动** — 设置随系统启动，自动恢复桌面便利贴
-- **文件持久化** — 按日期时间命名，保存为 `.md` 文件于 `~/Library/Application Support/mdsticky/notes/`
-- **多协议同步** — WebDAV / 本地文件夹 / Samba 三种同步服务
-- **文件监听** — 实时监听本地变更，2 秒防抖后自动推送
+- **彩色悬浮便利贴**。每个便利贴都是一个独立窗口。从调色板选色，拖到屏幕任意位置，可置顶保持可见，可自由缩放。
+- **Markdown 编辑器 + 工具栏**。自研的 `NSViewRepresentable` 包装 `NSTextView`；工具栏可在光标处或选中文本上插入语法（粗体、斜体、删除线、代码、链接、列表、复选框、代码块、分割线），并提供 H1–H6 标题级别下拉。
+- **完整 GFM 渲染**。基于 [MarkdownUI](https://github.com/gonzalezreal/swift-markdown-ui)：标题、有序/无序/任务列表、表格、围栏代码块、引用、水平线、链接、图片、强调、删除线全部支持。代码块用半透明深色背景，在任何便利贴底色上都清晰可读。
+- **管理页实时预览**。"管理便利贴"窗口列出全部笔记，并在右侧显示当前选中笔记的 Markdown 实时预览。编辑在悬浮便利贴窗口内进行。
+- **文件即笔记**。笔记以 `yyyy-MM-dd HH.mm.md` 命名，存储于 `~/Library/Application Support/mdsticky/notes/`。任何文本编辑器都能打开，无格式锁定。
+- **多端同步**。可配置一个或多个同步目标：WebDAV、本地目录、SMB 共享。系统文件事件触发同步，2 秒防抖。
+- **登录自启**。在设置里打开"自启动"，应用通过 `SMAppService` 注册为登录项。
+- **窗口持久化**。关闭最后一个窗口不会退出应用——菜单栏图标保持运行；下次启动时，之前可见的便利贴会自动恢复。
 
-## 技术栈
+## 系统要求
 
-- Swift 5 + SwiftUI + SwiftData
-- macOS 15.7+
-- AppKit 浮动窗口 (NSWindow + NSWindow.Level)
-- App Sandbox + Hardened Runtime
-- Security-scoped Bookmarks（沙箱文件夹访问权限）
-- 零外部依赖，全部使用 macOS 原生框架
+- macOS 15.7 或更高版本
+- Xcode 16 / 26（Swift 5 工具链）
 
 ## 构建
 
 ```bash
-xcodebuild -project mdsticky/mdsticky.xcodeproj -scheme mdsticky -destination 'platform=macOS' build
+xcodebuild -project mdsticky/mdsticky/mdsticky.xcodeproj \
+           -scheme mdsticky \
+           -destination 'platform=macOS' \
+           build
 ```
 
-## 测试
+`MarkdownUI` Swift Package 已在 `mdsticky.xcodeproj` 中声明，Xcode 首次构建时自动解析。
 
-```bash
-xcodebuild -project mdsticky/mdsticky.xcodeproj -scheme mdsticky -destination 'platform=macOS' test
-```
-
-## 同步服务
-
-支持三种同步服务，可同时启用多个：
-
-| 服务 | 协议 | 说明 |
-|------|------|------|
-| WebDAV | HTTP | PROPFIND / GET / PUT / DELETE |
-| 本地文件夹 | 文件复制 | 同步到用户选择的本地目录 |
-| Samba | SMB | 通过已挂载的 SMB 共享路径同步 |
-
-### 同步规则
-
-- **主服务**支持双向同步（拉取 + 推送），非主服务仅单向（上传）
-- 同步频率可选：实时 / 每天一次 / 手动
-- 主服务默认实时同步，其他默认每天一次
-- 本地文件夹支持通过 `NSOpenPanel` 选择目标目录，使用安全作用域书签（Security-scoped Bookmark）保留访问权限
-
-## 目录结构
+## 项目结构
 
 ```
 mdsticky/
+├── mdstickyApp.swift              — @main 入口；Window(.manager) + MenuBarExtra
+├── ContentView.swift               — 笔记管理列表 + 预览详情面板
 ├── Models/
-│   ├── StickyNote.swift         — SwiftData 数据模型
-│   └── AppSettings.swift        — UserDefaults 应用配置
+│   ├── StickyNote.swift            — SwiftData @Model（id、标题、颜色、位置、…）
+│   └── AppSettings.swift           — UserDefaults 封装（同步目标、自启动）
 ├── Views/
-│   ├── ContentView.swift        — 便利贴管理页面
-│   ├── StickyNoteView.swift     — 单张便利贴视图（编辑/展示模式）
-│   ├── MarkdownToolbar.swift    — Markdown 编辑工具栏
-│   └── SettingsView.swift       — 应用设置（通用/同步）
+│   ├── StickyNoteView.swift        — 单个悬浮便利贴：标题栏 + Markdown 编辑 + 渲染
+│   ├── MarkdownEditorView.swift    — NSViewRepresentable 包装 NSScrollView + NSTextView
+│   ├── MarkdownToolbar.swift       — Markdown 语法工具栏 + 标题级别下拉
+│   └── SettingsView.swift          — 自启动 + 同步配置
 ├── Services/
-│   ├── NoteStorageService.swift   — .md 文件读写
-│   ├── WindowManager.swift        — 浮动窗口生命周期管理
-│   ├── AutoStartService.swift     — SMAppService 登录项
-│   ├── SettingsWindowController.swift — 设置窗口
-│   └── Sync/
-│       ├── SyncServiceProtocol.swift    — 同步服务协议
-│       ├── SyncServiceProvider.swift    — 同步管理器
-│       ├── WebDAVSyncService.swift      — WebDAV 同步
-│       ├── LocalFolderSyncService.swift — 本地文件夹同步
-│       └── SambaSyncService.swift       — Samba 同步
-├── Utilities/
-│   └── Color+Hex.swift          — 颜色工具 + NoteColor 枚举
-└── mdstickyApp.swift            — @main 应用入口
+│   ├── NoteStorageService.swift    — 应用支持目录下 .md 文件的读写
+│   ├── WindowManager.swift         — 每个便利贴的 NSWindow 生命周期、焦点、颜色、置顶
+│   ├── AutoStartService.swift      — SMAppService 登录项
+│   ├── SettingsWindowController.swift — 设置窗口宿主
+│   └── Sync/                       — SyncServiceProtocol + 各后端实现
+│       ├── SyncServiceProtocol.swift
+│       ├── SyncServiceProvider.swift
+│       ├── WebDAVSyncService.swift
+│       ├── LocalFolderSyncService.swift
+│       └── SambaSyncService.swift
+└── Utilities/
+    └── Color+Hex.swift             — 颜色十六进制解析 + NoteColor 调色板
 ```
+
+## Markdown 约定
+
+每个便利贴就是一个 `.md` 文件。元数据（颜色、位置、尺寸、置顶、可见）保存在 SwiftData 里；正文只在文件中。工具栏插入的语法跟手写完全一致，所以文件可以无缝迁移到任何其他 Markdown 阅读器。
+
+## 许可协议
+
+TBD。
