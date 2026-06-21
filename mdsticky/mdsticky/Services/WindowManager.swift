@@ -9,6 +9,11 @@ import SwiftUI
 import SwiftData
 import AppKit
 
+final class RectangularNoteWindow: NSWindow {
+    override var canBecomeKey: Bool { true }
+    override var canBecomeMain: Bool { true }
+}
+
 @MainActor
 final class WindowManager {
     static let shared = WindowManager()
@@ -83,34 +88,18 @@ final class WindowManager {
             height: note.height
         )
 
-        // Standard NSWindow with .titled: this is the configuration
-        // that works correctly with the in-app NSTextView editor
-        // (clicking into the note window must let the NSTextView become
-        // first responder for typing to work). The titlebar is hidden
-        // via .titlebarAppearsTransparent + .titleVisibility = .hidden
-        // so only the note's colored body is visible. NOTE: macOS
-        // applies a default rounded corner to the window shape; this
-        // cannot be removed from Swift without breaking the window's
-        // first-responder behavior.
-        let window = NSWindow(
+        let window = RectangularNoteWindow(
             contentRect: frame,
-            styleMask: [.titled, .closable, .miniaturizable, .resizable],
+            styleMask: [.borderless, .resizable, .fullSizeContentView],
             backing: .buffered,
             defer: false
         )
-
-        window.title = note.title
-        window.titlebarAppearsTransparent = true
-        window.titleVisibility = .hidden
         window.isMovableByWindowBackground = true
         window.level = note.isPinned ? .floating : .normal
         window.backgroundColor = NSColor(hex: note.colorHex)
         window.hasShadow = true
         window.contentView = hostingView
         window.delegate = delegate
-        window.standardWindowButton(.closeButton)?.isHidden = true
-        window.standardWindowButton(.miniaturizeButton)?.isHidden = true
-        window.standardWindowButton(.zoomButton)?.isHidden = true
         window.collectionBehavior = [.canJoinAllSpaces]
 
         return window
