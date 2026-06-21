@@ -83,6 +83,7 @@ struct MarkdownToolbar: View {
                     onAction(.heading(level: level))
                 } label: {
                     Text("H\(level)")
+                        .foregroundStyle(Color(white: 0.15))
                 }
             }
         } label: {

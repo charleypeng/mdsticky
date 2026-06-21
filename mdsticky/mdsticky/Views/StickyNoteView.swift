@@ -202,7 +202,10 @@ struct MarkdownContentView: View {
 
 extension Theme {
     static func mdsticky(textColor: Color) -> Theme {
-        Theme()
+        // Start from .gitHub so heading1...heading6 carry their default
+        // font sizes. We then override only .text to match the note's
+        // 13pt base font and the caller-supplied text color.
+        Theme.gitHub
             .text {
                 FontSize(13)
                 ForegroundColor(textColor)
