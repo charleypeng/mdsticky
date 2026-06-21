@@ -2,8 +2,6 @@
 //  StickyNoteView.swift
 //  mdsticky
 //
-//  Single sticky note floating window content with Markdown support.
-//
 
 import SwiftUI
 import SwiftData
@@ -14,6 +12,7 @@ struct StickyNoteView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var isEditing: Bool = false
     @State private var content: String = ""
+    @State private var activeTextView: NSTextView?
 
     private let textColor = Color(white: 0.18)
     private let secondaryColor = Color(white: 0.38)
@@ -31,7 +30,7 @@ struct StickyNoteView: View {
 
                 if isEditing {
                     MarkdownToolbar { action in
-                        performMarkdownAction(action, content: &content)
+                        handleMarkdownAction(action)
                     }
                 }
 
@@ -105,11 +104,12 @@ struct StickyNoteView: View {
     private var contentArea: some View {
         Group {
             if isEditing {
-                TextEditor(text: $content)
-                    .font(.system(size: 13))
-                    .foregroundStyle(textColor)
-                    .scrollContentBackground(.hidden)
-                    .background(Color.clear)
+                MarkdownEditorView(
+                    content: $content,
+                    onTextViewReady: { tv in activeTextView = tv },
+                    autoFocus: true,
+                    textColor: NSColor(white: 0.18, alpha: 1.0)
+                )
             } else {
                 ScrollView {
                     MarkdownContentView(text: content, textColor: textColor, secondaryColor: secondaryColor)
@@ -141,6 +141,44 @@ struct StickyNoteView: View {
 
     private func close() {
         WindowManager.shared.hideWindow(for: note, in: modelContext)
+    }
+
+    private func handleMarkdownAction(_ action: MarkdownToolbarAction) {
+        switch action {
+        case .inline(let prefix, let suffix, let placeholder):
+            insertAtCursor(prefix: prefix, suffix: suffix, placeholder: placeholder, selectPlaceholder: true)
+        case .heading(let level):
+            let hashes = String(repeating: "#", count: level)
+            insertAtCursor(prefix: "\n\(hashes) ", suffix: "", placeholder: "", selectPlaceholder: false)
+        case .block(let prefix):
+            if prefix == "\n```\n\n```\n" {
+                insertAtCursor(prefix: "\n```\n", suffix: "\n```\n", placeholder: "", selectPlaceholder: false)
+            } else {
+                insertAtCursor(prefix: prefix, suffix: "", placeholder: "", selectPlaceholder: false)
+            }
+        }
+    }
+
+    private func insertAtCursor(prefix: String, suffix: String, placeholder: String, selectPlaceholder: Bool) {
+        guard let tv = activeTextView, tv.window != nil else {
+            content += prefix + placeholder + suffix
+            return
+        }
+        let selectedRange = tv.selectedRange()
+        let nsText = tv.string as NSString
+        if selectedRange.length > 0 {
+            let selected = nsText.substring(with: selectedRange)
+            tv.insertText(prefix + selected + suffix, replacementRange: selectedRange)
+        } else {
+            let safePos = min(selectedRange.location, nsText.length)
+            tv.insertText(prefix + placeholder + suffix, replacementRange: NSRange(location: safePos, length: 0))
+            if selectPlaceholder, !placeholder.isEmpty {
+                let selectStart = safePos + (prefix as NSString).length
+                tv.setSelectedRange(NSRange(location: selectStart, length: (placeholder as NSString).length))
+                tv.scrollRangeToVisible(tv.selectedRange())
+            }
+        }
+        // textDidChange will sync content -> save
     }
 }
 
