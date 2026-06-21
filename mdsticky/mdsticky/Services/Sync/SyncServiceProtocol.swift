@@ -21,9 +21,9 @@ enum SyncFrequency: String, Codable, CaseIterable, Identifiable {
 
     var displayName: String {
         switch self {
-        case .realtime: return "实时"
-        case .daily: return "每天一次"
-        case .manual: return "手动"
+        case .realtime: return "Realtime"
+        case .daily: return "Daily"
+        case .manual: return "Manual"
         }
     }
 }
@@ -38,7 +38,7 @@ enum SyncServiceType: String, Codable, CaseIterable, Identifiable {
     var displayName: String {
         switch self {
         case .webdav: return "WebDAV"
-        case .localFolder: return "本地文件夹"
+        case .localFolder: return "Local Folder"
         case .samba: return "Samba"
         }
     }

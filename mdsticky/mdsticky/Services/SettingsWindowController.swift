@@ -30,7 +30,7 @@ final class SettingsWindowController {
             backing: .buffered,
             defer: false
         )
-        window.title = "设置"
+        window.title = "Settings"
         window.titlebarAppearsTransparent = true
         window.titleVisibility = .hidden
         window.center()

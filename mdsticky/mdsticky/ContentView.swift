@@ -19,31 +19,31 @@ struct ContentView: View {
                         NoteRowView(note: note)
                     }
                     .contextMenu {
-                        Button(note.isVisible ? "隐藏" : "显示") {
+                        Button(note.isVisible ? "Hide" : "Show") {
                             toggleVisibility(for: note)
                         }
-                        Button(note.isPinned ? "取消置顶" : "置顶") {
+                        Button(note.isPinned ? "Unpin" : "Pin") {
                             togglePin(for: note)
                         }
                         Divider()
-                        Button("删除", role: .destructive) {
+                        Button("Delete", role: .destructive) {
                             delete(note: note)
                         }
                     }
                 }
                 .onDelete(perform: deleteNotes)
             }
-            .navigationTitle("便利贴")
+            .navigationTitle("Sticky Notes")
             .navigationSplitViewColumnWidth(min: 220, ideal: 260)
             .toolbar {
                 ToolbarItem {
                     Button(action: addNote) {
-                        Label("新建便利贴", systemImage: "plus")
+                        Label("New Note", systemImage: "plus")
                     }
                 }
                 ToolbarItem {
                     Button(action: showSettings) {
-                        Label("设置", systemImage: "gear")
+                        Label("Settings", systemImage: "gear")
                     }
                 }
             }
@@ -56,7 +56,7 @@ struct ContentView: View {
                 NoteDetailView(note: note)
                     .id(note.id)
             } else {
-                Text("选择一个便利贴")
+                Text("Select a Note")
                     .foregroundStyle(.secondary)
             }
         }
@@ -157,7 +157,7 @@ struct NoteDetailView: View {
                 Text(note.title)
                     .font(.title2)
                 Spacer()
-                Button(note.isVisible ? "隐藏" : "显示") {
+                Button(note.isVisible ? "Hide" : "Show") {
                     toggleVisibility()
                 }
             }

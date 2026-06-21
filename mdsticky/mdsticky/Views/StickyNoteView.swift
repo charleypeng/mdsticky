@@ -190,7 +190,7 @@ struct MarkdownContentView: View {
 
     var body: some View {
         if text.isEmpty {
-            Text("双击编辑...")
+            Text("Double-click to edit…")
                 .font(.system(size: 13))
                 .foregroundStyle(secondaryColor)
         } else {

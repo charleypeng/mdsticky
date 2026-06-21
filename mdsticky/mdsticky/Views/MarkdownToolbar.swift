@@ -11,19 +11,19 @@ struct MarkdownToolbar: View {
     let onAction: (MarkdownToolbarAction) -> Void
 
     private let inlineActions: [(icon: String, label: LocalizedStringKey, action: MarkdownToolbarAction)] = [
-        ("bold",          "加粗",   .inline(prefix: "**",  suffix: "**",    placeholder: "粗体文字")),
-        ("italic",        "斜体",   .inline(prefix: "*",   suffix: "*",     placeholder: "斜体文字")),
-        ("strikethrough", "删除线", .inline(prefix: "~~",  suffix: "~~",    placeholder: "删除线文字")),
-        ("chevron.left.forwardslash.chevron.right", "代码", .inline(prefix: "`", suffix: "`", placeholder: "代码")),
-        ("link",          "链接",   .inline(prefix: "[",   suffix: "](url)", placeholder: "链接文字")),
+        ("bold",          "Bold",   .inline(prefix: "**",  suffix: "**",    placeholder: "bold text")),
+        ("italic",        "Italic",   .inline(prefix: "*",   suffix: "*",     placeholder: "italic text")),
+        ("strikethrough", "Strikethrough", .inline(prefix: "~~",  suffix: "~~",    placeholder: "strikethrough text")),
+        ("chevron.left.forwardslash.chevron.right", "Code", .inline(prefix: "`", suffix: "`", placeholder: "代码")),
+        ("link",          "Link",   .inline(prefix: "[",   suffix: "](url)", placeholder: "link text")),
     ]
 
     private let blockActions: [(icon: String, label: LocalizedStringKey, action: MarkdownToolbarAction)] = [
-        ("list.bullet", "无序列表", .block(prefix: "\n- ")),
-        ("list.number", "有序列表", .block(prefix: "\n1. ")),
-        ("checklist",   "复选框",   .block(prefix: "\n- [ ] ")),
-        ("curlybraces", "代码块",   .block(prefix: "\n```\n\n```\n")),
-        ("minus",       "分割线",   .block(prefix: "\n---\n")),
+        ("list.bullet", "Bullet List", .block(prefix: "\n- ")),
+        ("list.number", "Numbered List", .block(prefix: "\n1. ")),
+        ("checklist",   "Checklist",   .block(prefix: "\n- [ ] ")),
+        ("curlybraces", "Code Block",   .block(prefix: "\n```\n\n```\n")),
+        ("minus",       "Divider",   .block(prefix: "\n---\n")),
     ]
 
     var body: some View {
@@ -103,6 +103,6 @@ struct MarkdownToolbar: View {
         // falls back to the system accent color (usually blue). Tint forces
         // it to match the rest of the toolbar's dark gray.
         .tint(Color(white: 0.15))
-        .help("标题级别")
+        .help("Heading Level")
     }
 }

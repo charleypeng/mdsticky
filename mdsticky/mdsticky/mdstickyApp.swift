@@ -51,7 +51,7 @@ struct mdstickyApp: App {
     }
 
     var body: some Scene {
-        Window("便利贴管理", id: "manager") {
+        Window("Sticky Notes", id: "manager") {
             ContentView()
                 .frame(minWidth: 500, minHeight: 350)
                 .preferredColorScheme(colorScheme(from: settings.colorSchemeMode))
@@ -69,12 +69,12 @@ struct mdstickyApp: App {
         .environment(\.locale, Locale(identifier: settings.language))
         .commands {
             CommandGroup(replacing: .appInfo) {
-                Button("关于 mdsticky") {
+                Button("About mdsticky") {
                     showAboutPanel()
                 }
             }
             CommandGroup(after: .newItem) {
-                Button("新建便利贴") {
+                Button("New Note") {
                     newStickyNote()
                 }
                 .keyboardShortcut("n")
@@ -134,12 +134,12 @@ struct MenuBarView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Button("新建便利贴") {
+            Button("New Note") {
                 createNote()
                 dismiss()
             }
 
-            Button("管理便利贴") {
+            Button("Manage Notes") {
                 openWindow(id: "manager")
                 NSApp.activate(ignoringOtherApps: true)
                 dismiss()
@@ -147,7 +147,7 @@ struct MenuBarView: View {
 
             Divider()
 
-            Button("立即同步") {
+            Button("Sync Now") {
                 Task { await SyncServiceProvider.shared.syncAll() }
                 dismiss()
             }
@@ -155,7 +155,7 @@ struct MenuBarView: View {
 
             Divider()
 
-            Button("退出") {
+            Button("Quit") {
                 NSApplication.shared.terminate(nil)
             }
         }

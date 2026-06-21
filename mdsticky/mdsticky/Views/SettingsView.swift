@@ -17,9 +17,9 @@ enum SettingsTab: CaseIterable {
 
     var label: LocalizedStringKey {
         switch self {
-        case .general: return "通用"
-        case .sync: return "同步"
-        case .languageAppearance: return "语言与外观"
+        case .general: return "General"
+        case .sync: return "Sync"
+        case .languageAppearance: return "Language & Appearance"
         }
     }
 
@@ -84,8 +84,8 @@ struct SettingsView: View {
 
     private var generalTab: some View {
         Form {
-            Section("启动") {
-                Toggle("随系统启动并恢复桌面便利贴", isOn: $settings.autoStart)
+            Section("Startup") {
+                Toggle("Launch at login and restore desktop notes", isOn: $settings.autoStart)
                     .onChange(of: settings.autoStart) { _, enabled in
                         AutoStartService.shared.setEnabled(enabled)
                     }
@@ -100,7 +100,7 @@ struct SettingsView: View {
     private var languageAppearanceTab: some View {
         Form {
             Section {
-                Picker("语言", selection: $settings.language) {
+                Picker("Language", selection: $settings.language) {
                     Text("简体中文").tag("zh-Hans")
                     Text("English").tag("en")
                     Text("繁體中文").tag("zh-Hant")
@@ -114,18 +114,18 @@ struct SettingsView: View {
                 }
                 .pickerStyle(.menu)
             } header: {
-                Text("语言")
+                Text("Language")
             }
 
             Section {
-                Picker("显示模式", selection: $settings.colorSchemeMode) {
-                    Text("跟随系统").tag(ColorSchemeMode.system)
-                    Text("白天").tag(ColorSchemeMode.light)
-                    Text("夜晚").tag(ColorSchemeMode.dark)
+                Picker("Appearance", selection: $settings.colorSchemeMode) {
+                    Text("System").tag(ColorSchemeMode.system)
+                    Text("Light").tag(ColorSchemeMode.light)
+                    Text("Dark").tag(ColorSchemeMode.dark)
                 }
                 .pickerStyle(.segmented)
             } header: {
-                Text("显示模式")
+                Text("Appearance")
             }
         }
         .formStyle(.grouped)
@@ -137,10 +137,10 @@ struct SettingsView: View {
     private var syncTab: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                Text("同步服务")
+                Text("Sync Services")
                     .font(.headline)
                 Spacer()
-                Menu("添加服务") {
+                Menu("Add Service") {
                     ForEach(SyncServiceType.allCases) { type in
                         Button(type.displayName) { provider.addService(type: type) }
                     }
@@ -148,7 +148,7 @@ struct SettingsView: View {
                 .menuStyle(.borderlessButton)
                 .frame(width: 80)
 
-                Button("全部同步") {
+                Button("Sync All") {
                     Task { await provider.syncAll() }
                 }
                 .disabled(provider.enabledConfigs.isEmpty)
@@ -159,7 +159,7 @@ struct SettingsView: View {
             if provider.configs.isEmpty {
                 VStack(spacing: 8) {
                     Image(systemName: "tray").font(.title).foregroundStyle(.secondary)
-                    Text("暂无同步服务，点击「添加服务」开始").foregroundStyle(.secondary)
+                    Text("No sync services yet. Click \"Add Service\" to start.").foregroundStyle(.secondary)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
@@ -174,17 +174,17 @@ struct SettingsView: View {
                 }
             }
         }
-        .confirmationDialog("确认删除", isPresented: .init(
+        .confirmationDialog("Confirm Delete", isPresented: .init(
             get: { deleteTarget != nil },
             set: { if !$0 { deleteTarget = nil } }
         )) {
-            Button("删除", role: .destructive) {
+            Button("Delete", role: .destructive) {
                 if let target = deleteTarget { provider.removeService(target) }
                 deleteTarget = nil
             }
-            Button("取消", role: .cancel) { deleteTarget = nil }
+            Button("Cancel", role: .cancel) { deleteTarget = nil }
         } message: {
-            Text("确定要删除同步服务「\(deleteTarget?.displayName ?? "")」吗？此操作不可撤销。")
+            Text("Are you sure you want to delete the sync service \"\(deleteTarget?.displayName ?? "")\"? This action cannot be undone.")
         }
     }
 
@@ -199,7 +199,7 @@ struct SettingsView: View {
                     .font(.title3)
                     .foregroundStyle(config.isEnabled ? Color.accentColor : .secondary)
 
-                TextField("服务名称", text: .init(
+                TextField("Service Name", text: .init(
                     get: { config.name },
                     set: { var c = config; c.name = $0; provider.updateConfig(c) }
                 ))
@@ -226,7 +226,7 @@ struct SettingsView: View {
 
             // Footer
             HStack {
-                Picker("同步频率", selection: .init(
+                Picker("Sync Frequency", selection: .init(
                     get: { config.frequency },
                     set: { var c = config; c.frequency = $0; provider.updateConfig(c) }
                 )) {
@@ -239,12 +239,12 @@ struct SettingsView: View {
                 Spacer()
 
                 HStack(spacing: 4) {
-                    Text(config.isPrimary ? "已设为主服务" : "非主服务")
+                    Text(config.isPrimary ? "Primary Service" : "Not Primary")
                         .font(.caption)
                         .foregroundStyle(config.isPrimary ? .green : .secondary)
 
                     if config.isEnabled {
-                        Button(config.isPrimary ? "" : "设为主") {
+                        Button(config.isPrimary ? "" : "Set as Primary") {
                             provider.setPrimary(config)
                         }
                         .buttonStyle(.borderless)
@@ -257,7 +257,7 @@ struct SettingsView: View {
 
                 HStack(spacing: 6) {
                     if let date = config.lastSyncDate {
-                        Text("上次: \(date, format: .dateTime.hour().minute())")
+                        Text("Last: \(date, format: .dateTime.hour().minute())")
                             .font(.caption2)
                             .foregroundStyle(.secondary)
                     }
@@ -316,11 +316,11 @@ struct SettingsView: View {
 
     private func webdavFields(for config: SyncServiceConfig) -> some View {
         VStack(spacing: 6) {
-            labeledField("服务器", binding(for: config, keyPath: \.webdavURL), placeholder: "https://dav.example.com/remote.php/dav/files/user/")
+            labeledField("Server", binding(for: config, keyPath: \.webdavURL), placeholder: "https://dav.example.com/remote.php/dav/files/user/")
             HStack(spacing: 8) {
-                labeledField("用户名", binding(for: config, keyPath: \.webdavUsername), placeholder: "")
+                labeledField("Username", binding(for: config, keyPath: \.webdavUsername), placeholder: "")
                     .frame(maxWidth: .infinity)
-                labeledField("密码", binding(for: config, keyPath: \.webdavPassword), placeholder: "", secure: true)
+                labeledField("Password", binding(for: config, keyPath: \.webdavPassword), placeholder: "", secure: true)
                     .frame(maxWidth: .infinity)
             }
         }
@@ -328,9 +328,9 @@ struct SettingsView: View {
 
     private func localFolderFields(for config: SyncServiceConfig) -> some View {
         HStack(spacing: 8) {
-            labeledField("路径", binding(for: config, keyPath: \.localFolderPath), placeholder: "~/Documents/mdsticky_backup")
+            labeledField("Path", binding(for: config, keyPath: \.localFolderPath), placeholder: "~/Documents/mdsticky_backup")
 
-            Button("选择文件夹...") {
+            Button("Choose Folder…") {
                 selectFolder(for: config)
             }
             .buttonStyle(.borderedProminent)
@@ -342,7 +342,7 @@ struct SettingsView: View {
     private func sambaFields(for config: SyncServiceConfig) -> some View {
         VStack(spacing: 6) {
             HStack(spacing: 8) {
-                labeledField("路径", binding(for: config, keyPath: \.sambaPath), placeholder: "/Volumes/ShareName/folder")
+                labeledField("Path", binding(for: config, keyPath: \.sambaPath), placeholder: "/Volumes/ShareName/folder")
                 Button("选择...") { selectFolder(for: config) }
                     .buttonStyle(.borderedProminent)
                     .controlSize(.small)
@@ -387,8 +387,8 @@ struct SettingsView: View {
         panel.canChooseDirectories = true
         panel.canChooseFiles = false
         panel.allowsMultipleSelection = false
-        panel.prompt = "选择文件夹"
-        panel.message = "选择同步目标文件夹"
+        panel.prompt = "Choose Folder"
+        panel.message = "Choose sync target folder"
 
         panel.begin { response in
             guard response == .OK, let url = panel.url else { return }
@@ -425,7 +425,7 @@ struct SettingsView: View {
             if isTesting.contains(config.id) {
                 ProgressView().controlSize(.small).frame(width: 14, height: 14)
             } else {
-                Text("测试").font(.caption)
+                Text("Test").font(.caption)
             }
         }
         .buttonStyle(.borderless)
@@ -435,7 +435,7 @@ struct SettingsView: View {
 
     private func testConnection(_ config: SyncServiceConfig) {
         isTesting.insert(config.id)
-        testStatus[config.id] = "测试中..."
+        testStatus[config.id] = "Testing…"
         let cfg = config
         Task {
             let svc = provider.service(for: cfg) ?? {
@@ -446,7 +446,7 @@ struct SettingsView: View {
                 }
             }()
             let ok = await svc.testConnection()
-            testStatus[config.id] = ok ? "连接成功" : "连接失败"
+            testStatus[config.id] = ok ? "Connection Successful" : "Connection Failed"
             isTesting.remove(config.id)
         }
     }

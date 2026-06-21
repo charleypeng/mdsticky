@@ -74,13 +74,13 @@ enum NoteColor: String, CaseIterable {
     var nsColor: NSColor { NSColor(hex: rawValue) }
     var name: LocalizedStringKey {
         switch self {
-        case .yellow: return "黄色"
-        case .green: return "绿色"
-        case .blue: return "蓝色"
-        case .pink: return "粉色"
-        case .orange: return "橙色"
-        case .purple: return "紫色"
-        case .gray: return "灰色"
+        case .yellow: return "Yellow"
+        case .green: return "Green"
+        case .blue: return "Blue"
+        case .pink: return "Pink"
+        case .orange: return "Orange"
+        case .purple: return "Purple"
+        case .gray: return "Gray"
         }
     }
 }
