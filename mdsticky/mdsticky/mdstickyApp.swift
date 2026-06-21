@@ -64,6 +64,7 @@ struct mdstickyApp: App {
                 }
         }
         .modelContainer(sharedModelContainer)
+        .defaultLaunchBehavior(.suppressed)
         .defaultSize(width: 700, height: 500)
         .windowResizability(.contentSize)
         .environment(\.locale, Locale(identifier: settings.language))
