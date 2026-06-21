@@ -10,7 +10,7 @@ enum MarkdownToolbarAction {
 struct MarkdownToolbar: View {
     let onAction: (MarkdownToolbarAction) -> Void
 
-    private let inlineActions: [(icon: String, label: String, action: MarkdownToolbarAction)] = [
+    private let inlineActions: [(icon: String, label: LocalizedStringKey, action: MarkdownToolbarAction)] = [
         ("bold",          "加粗",   .inline(prefix: "**",  suffix: "**",    placeholder: "粗体文字")),
         ("italic",        "斜体",   .inline(prefix: "*",   suffix: "*",     placeholder: "斜体文字")),
         ("strikethrough", "删除线", .inline(prefix: "~~",  suffix: "~~",    placeholder: "删除线文字")),
@@ -18,7 +18,7 @@ struct MarkdownToolbar: View {
         ("link",          "链接",   .inline(prefix: "[",   suffix: "](url)", placeholder: "链接文字")),
     ]
 
-    private let blockActions: [(icon: String, label: String, action: MarkdownToolbarAction)] = [
+    private let blockActions: [(icon: String, label: LocalizedStringKey, action: MarkdownToolbarAction)] = [
         ("list.bullet", "无序列表", .block(prefix: "\n- ")),
         ("list.number", "有序列表", .block(prefix: "\n1. ")),
         ("checklist",   "复选框",   .block(prefix: "\n- [ ] ")),

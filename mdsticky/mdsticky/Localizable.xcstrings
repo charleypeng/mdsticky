@@ -1,349 +1,775 @@
 {
   "sourceLanguage" : "zh-Hans",
   "strings" : {
-    "隐藏" : {
+    "" : {
+
+    },
+    "%@:" : {
+
+    },
+    "Deutsch" : {
+
+    },
+    "English" : {
+
+    },
+    "Español" : {
+
+    },
+    "Français" : {
+
+    },
+    "H%lld" : {
+
+    },
+    "mdsticky" : {
+
+    },
+    "Português (Brasil)" : {
+
+    },
+    "Русский" : {
+
+    },
+    "한국어" : {
+
+    },
+    "上次: %@" : {
+
+    },
+    "代码" : {
+      "extractionState" : "stale",
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Hide" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code"
+          }
+        }
       }
     },
-    "显示" : {
+    "代码块" : {
+      "extractionState" : "stale",
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Show" } }
-      }
-    },
-    "取消置顶" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unpin" } }
-      }
-    },
-    "置顶" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pin" } }
-      }
-    },
-    "删除" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code Block"
+          }
+        }
       }
     },
     "便利贴" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sticky Notes" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sticky Notes"
+          }
+        }
       }
     },
-    "新建便利贴" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "New Note" } }
-      }
+    "便利贴管理" : {
+
     },
-    "设置" : {
+    "全部同步" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Settings" } }
-      }
-    },
-    "选择一个便利贴" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Select a Note" } }
-      }
-    },
-    "管理便利贴" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Manage Notes" } }
-      }
-    },
-    "立即同步" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sync Now" } }
-      }
-    },
-    "退出" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Quit" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sync All"
+          }
+        }
       }
     },
     "关于 mdsticky" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "About mdsticky" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About mdsticky"
+          }
+        }
       }
     },
-    "通用" : {
+    "分割线" : {
+      "extractionState" : "stale",
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "General" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Divider"
+          }
+        }
       }
     },
-    "同步" : {
+    "删除" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sync" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
       }
     },
-    "语言与外观" : {
+    "删除线" : {
+      "extractionState" : "stale",
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Language && Appearance" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Strikethrough"
+          }
+        }
       }
     },
-    "启动" : {
+    "删除线文字" : {
+      "extractionState" : "stale",
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Startup" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "strikethrough text"
+          }
+        }
       }
     },
-    "随系统启动并恢复桌面便利贴" : {
+    "加粗" : {
+      "extractionState" : "stale",
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Launch at login and restore desktop notes" } }
-      }
-    },
-    "同步服务" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sync Services" } }
-      }
-    },
-    "添加服务" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add Service" } }
-      }
-    },
-    "全部同步" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sync All" } }
-      }
-    },
-    "暂无同步服务，点击「添加服务」开始" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "No sync services yet. Click \"Add Service\" to start." } }
-      }
-    },
-    "服务名称" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Service Name" } }
-      }
-    },
-    "同步频率" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sync Frequency" } }
-      }
-    },
-    "已设为主服务" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Primary Service" } }
-      }
-    },
-    "非主服务" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Not Primary" } }
-      }
-    },
-    "设为主" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Set as Primary" } }
-      }
-    },
-    "测试" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Test" } }
-      }
-    },
-    "选择文件夹..." : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Choose Folder…" } }
-      }
-    },
-    "路径" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Path" } }
-      }
-    },
-    "服务器" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Server" } }
-      }
-    },
-    "用户名" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Username" } }
-      }
-    },
-    "密码" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Password" } }
-      }
-    },
-    "连接成功" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Connection Successful" } }
-      }
-    },
-    "连接失败" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Connection Failed" } }
-      }
-    },
-    "测试中..." : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Testing…" } }
-      }
-    },
-    "选择同步目标文件夹" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Choose sync target folder" } }
-      }
-    },
-    "确定要删除同步服务「%@」吗？此操作不可撤销。" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Are you sure you want to delete the sync service \"%@\"? This action cannot be undone." } }
-      }
-    },
-    "确认删除" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Confirm Delete" } }
-      }
-    },
-    "取消" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cancel" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bold"
+          }
+        }
       }
     },
     "双击编辑..." : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Double-click to edit…" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Double-click to edit…"
+          }
+        }
       }
     },
-    "加粗" : {
+    "取消" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Bold" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
       }
     },
-    "斜体" : {
+    "取消置顶" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Italic" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unpin"
+          }
+        }
       }
     },
-    "删除线" : {
+    "同步" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Strikethrough" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sync"
+          }
+        }
       }
     },
-    "代码" : {
+    "同步服务" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Code" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sync Services"
+          }
+        }
       }
     },
-    "链接" : {
+    "同步频率" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Link" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sync Frequency"
+          }
+        }
       }
     },
-    "无序列表" : {
+    "启动" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Bullet List" } }
-      }
-    },
-    "有序列表" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Numbered List" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Startup"
+          }
+        }
       }
     },
     "复选框" : {
+      "extractionState" : "stale",
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Checklist" } }
-      }
-    },
-    "代码块" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Code Block" } }
-      }
-    },
-    "分割线" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Divider" } }
-      }
-    },
-    "标题级别" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Heading Level" } }
-      }
-    },
-    "粗体文字" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "bold text" } }
-      }
-    },
-    "斜体文字" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "italic text" } }
-      }
-    },
-    "删除线文字" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "strikethrough text" } }
-      }
-    },
-    "链接文字" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "link text" } }
-      }
-    },
-    "黄色" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Yellow" } }
-      }
-    },
-    "绿色" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Green" } }
-      }
-    },
-    "蓝色" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Blue" } }
-      }
-    },
-    "粉色" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pink" } }
-      }
-    },
-    "橙色" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Orange" } }
-      }
-    },
-    "紫色" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Purple" } }
-      }
-    },
-    "灰色" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Gray" } }
-      }
-    },
-    "语言" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Language" } }
-      }
-    },
-    "显示模式" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Appearance" } }
-      }
-    },
-    "跟随系统" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "System" } }
-      }
-    },
-    "白天" : {
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Light" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Checklist"
+          }
+        }
       }
     },
     "夜晚" : {
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Dark" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dark"
+          }
+        }
+      }
+    },
+    "密码" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password"
+          }
+        }
+      }
+    },
+    "已设为主服务" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Primary Service"
+          }
+        }
+      }
+    },
+    "斜体" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Italic"
+          }
+        }
+      }
+    },
+    "斜体文字" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "italic text"
+          }
+        }
+      }
+    },
+    "新建便利贴" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Note"
+          }
+        }
+      }
+    },
+    "无序列表" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bullet List"
+          }
+        }
+      }
+    },
+    "日本語" : {
+
+    },
+    "显示" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show"
+          }
+        }
+      }
+    },
+    "显示模式" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appearance"
+          }
+        }
       }
     },
     "暂不同步" : {
+      "extractionState" : "stale",
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Don't Sync" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Don't Sync"
+          }
+        }
+      }
+    },
+    "暂无同步服务，点击「添加服务」开始" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No sync services yet. Click \"Add Service\" to start."
+          }
+        }
+      }
+    },
+    "有序列表" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Numbered List"
+          }
+        }
+      }
+    },
+    "服务名称" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Service Name"
+          }
+        }
+      }
+    },
+    "服务器" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server"
+          }
+        }
+      }
+    },
+    "标题级别" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heading Level"
+          }
+        }
+      }
+    },
+    "橙色" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orange"
+          }
+        }
+      }
+    },
+    "测试" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Test"
+          }
+        }
+      }
+    },
+    "测试中..." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testing…"
+          }
+        }
+      }
+    },
+    "添加服务" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Service"
+          }
+        }
+      }
+    },
+    "灰色" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gray"
+          }
+        }
+      }
+    },
+    "用户名" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Username"
+          }
+        }
+      }
+    },
+    "白天" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Light"
+          }
+        }
+      }
+    },
+    "确定要删除同步服务「%@」吗？此操作不可撤销。" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete the sync service \"%@\"? This action cannot be undone."
+          }
+        }
+      }
+    },
+    "确认删除" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm Delete"
+          }
+        }
+      }
+    },
+    "立即同步" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sync Now"
+          }
+        }
+      }
+    },
+    "简体中文" : {
+
+    },
+    "管理便利贴" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage Notes"
+          }
+        }
+      }
+    },
+    "粉色" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pink"
+          }
+        }
+      }
+    },
+    "粗体文字" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bold text"
+          }
+        }
+      }
+    },
+    "紫色" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purple"
+          }
+        }
+      }
+    },
+    "绿色" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Green"
+          }
+        }
+      }
+    },
+    "繁體中文" : {
+
+    },
+    "置顶" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pin"
+          }
+        }
+      }
+    },
+    "蓝色" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blue"
+          }
+        }
+      }
+    },
+    "设为主" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set as Primary"
+          }
+        }
+      }
+    },
+    "设置" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        }
+      }
+    },
+    "语言" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Language"
+          }
+        }
+      }
+    },
+    "语言与外观" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Language & Appearance"
+          }
+        }
+      }
+    },
+    "跟随系统" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System"
+          }
+        }
+      }
+    },
+    "路径" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Path"
+          }
+        }
+      }
+    },
+    "连接失败" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connection Failed"
+          }
+        }
+      }
+    },
+    "连接成功" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connection Successful"
+          }
+        }
+      }
+    },
+    "退出" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quit"
+          }
+        }
+      }
+    },
+    "选择..." : {
+
+    },
+    "选择一个便利贴" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a Note"
+          }
+        }
+      }
+    },
+    "选择同步目标文件夹" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose sync target folder"
+          }
+        }
+      }
+    },
+    "选择文件夹..." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose Folder…"
+          }
+        }
+      }
+    },
+    "通用" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General"
+          }
+        }
+      }
+    },
+    "链接" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Link"
+          }
+        }
+      }
+    },
+    "链接文字" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "link text"
+          }
+        }
+      }
+    },
+    "隐藏" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide"
+          }
+        }
+      }
+    },
+    "随系统启动并恢复桌面便利贴" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Launch at login and restore desktop notes"
+          }
+        }
+      }
+    },
+    "非主服务" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not Primary"
+          }
+        }
+      }
+    },
+    "黄色" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yellow"
+          }
+        }
       }
     }
   },

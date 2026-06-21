@@ -72,7 +72,7 @@ enum NoteColor: String, CaseIterable {
 
     var swiftUIColor: Color { Color(hex: rawValue) }
     var nsColor: NSColor { NSColor(hex: rawValue) }
-    var name: String {
+    var name: LocalizedStringKey {
         switch self {
         case .yellow: return "黄色"
         case .green: return "绿色"
