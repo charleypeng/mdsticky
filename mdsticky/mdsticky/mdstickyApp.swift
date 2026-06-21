@@ -11,7 +11,7 @@ private func enforceSingleInstance() {
     let bundleID = Bundle.main.bundleIdentifier ?? "charleypeng.mdsticky"
     let running = NSRunningApplication.runningApplications(withBundleIdentifier: bundleID)
     if running.count > 1 {
-        running.first?.activate(options: .activateIgnoringOtherApps)
+        running.first?.activate()
         exit(0)
     }
 }
