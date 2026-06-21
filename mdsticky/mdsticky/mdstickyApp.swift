@@ -37,10 +37,16 @@ struct mdstickyApp: App {
 
     init() {
         enforceSingleInstance()
+        setup()
+    }
+
+    private func setup() {
+        let context = sharedModelContainer.mainContext
+        restoreVisibleNotes(in: context)
+        SyncServiceProvider.shared.startMonitoring()
     }
 
     @StateObject private var settings = AppSettings.shared
-    @State private var hasRestored = false
 
     private func colorScheme(from mode: ColorSchemeMode) -> ColorScheme? {
         switch mode {
@@ -51,22 +57,12 @@ struct mdstickyApp: App {
     }
 
     var body: some Scene {
-        Window(tr("Sticky Notes"), id: "manager") {
-            ContentView()
-                .frame(minWidth: 500, minHeight: 350)
+        MenuBarExtra("mdsticky", systemImage: "note.text") {
+            MenuBarView()
+                .frame(width: 220)
                 .preferredColorScheme(colorScheme(from: settings.colorSchemeMode))
-                .onAppear {
-                    if !hasRestored {
-                        hasRestored = true
-                        restoreVisibleNotes()
-                        SyncServiceProvider.shared.startMonitoring()
-                    }
-                }
         }
         .modelContainer(sharedModelContainer)
-        .defaultLaunchBehavior(.suppressed)
-        .defaultSize(width: 700, height: 500)
-        .windowResizability(.contentSize)
         .environment(\.locale, Locale(identifier: settings.language))
         .commands {
             CommandGroup(replacing: .appInfo) {
@@ -88,18 +84,9 @@ struct mdstickyApp: App {
                 .keyboardShortcut(",")
             }
         }
-
-        MenuBarExtra("mdsticky", systemImage: "note.text") {
-            MenuBarView()
-                .frame(width: 220)
-                .preferredColorScheme(colorScheme(from: settings.colorSchemeMode))
-        }
-        .modelContainer(sharedModelContainer)
-        .environment(\.locale, Locale(identifier: settings.language))
     }
 
-    private func restoreVisibleNotes() {
-        let context = sharedModelContainer.mainContext
+    private func restoreVisibleNotes(in context: ModelContext) {
         let descriptor = FetchDescriptor<StickyNote>(predicate: #Predicate { $0.isVisible })
         guard let notes = try? context.fetch(descriptor) else { return }
         for note in notes {
@@ -136,7 +123,6 @@ struct mdstickyApp: App {
 
 struct MenuBarView: View {
     @Environment(\.modelContext) private var modelContext
-    @Environment(\.openWindow) private var openWindow
     @Environment(\.dismiss) private var dismiss
     @StateObject private var syncProvider = SyncServiceProvider.shared
 
@@ -148,8 +134,7 @@ struct MenuBarView: View {
             }
 
             Button(tr("Manage Notes")) {
-                openWindow(id: "manager")
-                NSApp.activate(ignoringOtherApps: true)
+                ManagerWindowController.shared.show()
                 dismiss()
             }
 
