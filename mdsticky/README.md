@@ -7,7 +7,7 @@ A macOS sticky-notes app where each note is a floating, color-coded window with 
 - **Floating color-coded notes.** Each note is its own window. Pick a color from the palette, drag the note anywhere on screen, pin it to stay on top, and resize freely.
 - **Markdown editor with toolbar.** A purpose-built `NSViewRepresentable` wraps `NSTextView`; the toolbar inserts syntax (bold, italic, strikethrough, code, link, list, checklist, code block, divider) and a heading-level dropdown (H1–H6) right at the cursor or around the selection.
 - **Full GFM rendering.** Powered by [MarkdownUI](https://github.com/gonzalezreal/swift-markdown-ui): headings, bullet / numbered / task lists, tables, fenced code blocks, blockquotes, horizontal rules, links, images, emphasis, strikethrough. Code blocks get a translucent dark background so they read on any note color.
-- **Live preview in the management window.** The "管理便利贴" window shows a list of all notes and a live Markdown preview for the selected one. Editing happens in the floating note window.
+- **Live preview in the management window.** The "Manage notes" window shows a list of all notes and a live Markdown preview for the selected one. Editing happens in the floating note window.
 - **Filesystem-backed notes.** Notes are saved as `yyyy-MM-dd HH.mm.md` under `~/Library/Application Support/mdsticky/notes/`. Open them in any text editor; no lock-in.
 - **Multi-target sync.** Configure one or more sync targets — WebDAV, local folder, or SMB share. File-system events on the notes directory trigger sync with a 2-second debounce.
 - **Auto-start at login.** Toggle "auto-start" in Settings; the app registers itself via `SMAppService`.
