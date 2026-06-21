@@ -50,7 +50,10 @@ struct MarkdownEditorView: NSViewRepresentable {
 
         if autoFocus {
             DispatchQueue.main.async { [weak textView] in
-                guard let tv = textView else { return }
+                guard let tv = textView,
+                      tv.window != nil,
+                      !tv.isHiddenOrHasHiddenAncestor,
+                      !tv.isHidden else { return }
                 tv.window?.makeFirstResponder(tv)
             }
         }
@@ -63,15 +66,25 @@ struct MarkdownEditorView: NSViewRepresentable {
         // Coordinator pushes NSTextView -> content (one-way).
     }
 
+    static func dismantleNSView(_ nsView: NSView, coordinator: Coordinator) {
+        coordinator.isReleased = true
+    }
+
     final class Coordinator: NSObject, NSTextViewDelegate {
         var content: Binding<String>
+        var isReleased: Bool = false
 
         init(content: Binding<String>) {
             self.content = content
         }
 
         func textDidChange(_ notification: Notification) {
-            guard let tv = notification.object as? NSTextView else { return }
+            // Guard against notifications that arrive after SwiftUI has
+            // torn the view down (mode switch). Mutating @State during
+            // a view update triggers "Modifying state during view update".
+            guard !isReleased,
+                  let tv = notification.object as? NSTextView,
+                  tv.window != nil else { return }
             content.wrappedValue = tv.string
         }
     }
