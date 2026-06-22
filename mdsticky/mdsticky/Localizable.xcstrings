@@ -372,6 +372,7 @@
       }
     },
     "Delete %ld notes?" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

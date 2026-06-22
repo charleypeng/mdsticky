@@ -38,6 +38,7 @@ struct ContentView: View {
                     }
                 }
             }
+            .listStyle(.bordered)
             .navigationTitle(tr("Sticky Notes"))
             .navigationSplitViewColumnWidth(min: 220, ideal: 260)
             .toolbar {
