@@ -19,26 +19,18 @@ struct ContentView: View {
 
     var body: some View {
         NavigationSplitView {
-            List(selection: $selectedNoteIds) {
-                ForEach(notes) { note in
-                    NavigationLink(value: note) {
-                        NoteRowView(note: note)
-                    }
-                    .contextMenu {
-                        Button(note.isVisible ? tr("Hide") : tr("Show")) {
-                            toggleVisibility(for: note)
-                        }
-                        Button(note.isPinned ? tr("Unpin") : tr("Pin")) {
-                            togglePin(for: note)
-                        }
-                        Divider()
-                        Button(tr("Delete"), role: .destructive) {
-                            confirmDeleteNotes = selectedNotes.isEmpty ? [note] : selectedNotes
-                        }
-                    }
-                }
-            }
-            .listStyle(.bordered)
+            NoteTableView(
+                notes: notes,
+                selectedIds: $selectedNoteIds,
+                onDoubleClickNote: { note in
+                    WindowManager.shared.showWindow(for: note, in: modelContext)
+                },
+                onDeleteNotes: { notes in
+                    confirmDeleteNotes = notes
+                },
+                onToggleVisibility: { toggleVisibility(for: $0) },
+                onTogglePin: { togglePin(for: $0) }
+            )
             .navigationTitle(tr("Sticky Notes"))
             .navigationSplitViewColumnWidth(min: 220, ideal: 260)
             .toolbar {
@@ -121,42 +113,6 @@ struct ContentView: View {
 
     private func showSettings() {
         SettingsWindowController.shared.show()
-    }
-}
-
-struct NoteRowView: View {
-    @Bindable var note: StickyNote
-
-    var body: some View {
-        HStack(spacing: 10) {
-            Circle()
-                .fill(Color(hex: note.colorHex))
-                .frame(width: 12, height: 12)
-
-            VStack(alignment: .leading, spacing: 2) {
-                Text(note.title)
-                    .font(.system(size: 13, weight: .medium))
-                Text(note.createdAt, format: Date.FormatStyle(date: .numeric, time: .shortened))
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-            }
-
-            Spacer()
-
-            HStack(spacing: 4) {
-                if note.isPinned {
-                    Image(systemName: "pin.fill")
-                        .font(.caption2)
-                        .foregroundStyle(.blue)
-                }
-                if note.isVisible {
-                    Image(systemName: "eye")
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
-                }
-            }
-        }
-        .padding(.vertical, 2)
     }
 }
 
