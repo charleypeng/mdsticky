@@ -44,6 +44,25 @@ struct mdstickyApp: App {
         let context = sharedModelContainer.mainContext
         restoreVisibleNotes(in: context)
         SyncServiceProvider.shared.startMonitoring()
+
+        let noteCount = (try? context.fetch(FetchDescriptor<StickyNote>()))?.count ?? 0
+        if noteCount == 0 && SyncServiceProvider.shared.enabledConfigs.isEmpty {
+            createFirstNote(in: context)
+        }
+    }
+
+    private func createFirstNote(in context: ModelContext) {
+        let now = Date()
+        let fileName = NoteStorageService.generateFileName(date: now)
+        let newNote = StickyNote(
+            title: fileName.replacingOccurrences(of: ".md", with: ""),
+            contentFileName: fileName,
+            createdAt: now
+        )
+        context.insert(newNote)
+        try? NoteStorageService.shared.save(content: "", for: newNote)
+        try? context.save()
+        WindowManager.shared.showWindow(for: newNote, in: context)
     }
 
     @StateObject private var settings = AppSettings.shared
