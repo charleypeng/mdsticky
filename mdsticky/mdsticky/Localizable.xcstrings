@@ -102,6 +102,7 @@
       }
     },
     "Author" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -371,6 +372,7 @@
       }
     },
     "Delete failed" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -454,6 +456,7 @@
       }
     },
     "Download failed" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1053,6 +1056,7 @@
       }
     },
     "Service not configured" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1081,6 +1085,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "设为主"
+          }
+        }
+      }
+    },
+    "Set \"%@\" as the primary sync service? It will sync bidirectionally in real time." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set \"%@\" as the primary sync service? It will sync bidirectionally in real time."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将「%@」设为主用同步服务？它将进行实时双向同步。"
           }
         }
       }
@@ -1340,6 +1360,7 @@
       }
     },
     "Upload failed" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

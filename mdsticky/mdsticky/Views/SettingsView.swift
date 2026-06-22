@@ -39,6 +39,7 @@ struct SettingsView: View {
     @State private var testStatus: [String: String] = [:]
     @State private var isTesting: Set<String> = []
     @State private var deleteTarget: SyncServiceConfig? = nil
+    @State private var primaryTarget: SyncServiceConfig? = nil
 
     var body: some View {
         VStack(spacing: 0) {
@@ -198,6 +199,21 @@ struct SettingsView: View {
                 return String(format: fmt, deleteTarget?.displayName ?? "")
             }())
         }
+        .confirmationDialog(tr("Set as Primary"), isPresented: .init(
+            get: { primaryTarget != nil },
+            set: { if !$0 { primaryTarget = nil } }
+        )) {
+            Button(tr("Set as Primary")) {
+                if let target = primaryTarget { provider.setPrimary(target) }
+                primaryTarget = nil
+            }
+            Button(tr("Cancel"), role: .cancel) { primaryTarget = nil }
+        } message: {
+            Text(verbatim: {
+                let fmt = tr("Set \"%@\" as the primary sync service? It will sync bidirectionally in real time.")
+                return String(format: fmt, primaryTarget?.displayName ?? "")
+            }())
+        }
     }
 
     // MARK: - Service Card
@@ -258,12 +274,11 @@ struct SettingsView: View {
                         .font(.caption)
                         .foregroundStyle(config.isPrimary ? .green : .secondary)
 
-                    if config.isEnabled {
-                        Button(config.isPrimary ? "" : tr("Set as Primary")) {
-                            provider.setPrimary(config)
+                    if config.isEnabled && !config.isPrimary {
+                        Button(tr("Set as Primary")) {
+                            primaryTarget = config
                         }
-                        .buttonStyle(.borderless)
-                        .font(.caption)
+                        .buttonStyle(.borderedProminent)
                         .controlSize(.small)
                     }
                 }
