@@ -370,6 +370,22 @@
         }
       }
     },
+    "Delete failed" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete failed"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除失败"
+          }
+        }
+      }
+    },
     "Deutsch" : {
       "localizations" : {
         "en" : {
@@ -433,6 +449,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "双击编辑..."
+          }
+        }
+      }
+    },
+    "Download failed" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download failed"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下载失败"
           }
         }
       }
@@ -1020,6 +1052,22 @@
         }
       }
     },
+    "Service not configured" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Service not configured"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "服务未配置"
+          }
+        }
+      }
+    },
     "Set as Primary" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -1287,6 +1335,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "取消置顶"
+          }
+        }
+      }
+    },
+    "Upload failed" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upload failed"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上传失败"
           }
         }
       }

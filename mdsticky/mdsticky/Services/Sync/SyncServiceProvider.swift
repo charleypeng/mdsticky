@@ -18,11 +18,11 @@ enum SyncError: LocalizedError {
 
     var errorDescription: String? {
         switch self {
-        case .notConfigured: return "服务未配置"
-        case .connectionFailed: return "连接失败"
-        case .uploadFailed: return "上传失败"
-        case .downloadFailed: return "下载失败"
-        case .deleteFailed: return "删除失败"
+        case .notConfigured: return tr("Service not configured")
+        case .connectionFailed: return tr("Connection Failed")
+        case .uploadFailed: return tr("Upload failed")
+        case .downloadFailed: return tr("Download failed")
+        case .deleteFailed: return tr("Delete failed")
         }
     }
 }
@@ -98,6 +98,7 @@ final class SyncServiceProvider: ObservableObject {
             c.frequency = .realtime
             updateConfig(c)
         }
+        Task { await syncAll() }
     }
 
     // MARK: - Services
