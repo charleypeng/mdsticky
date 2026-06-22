@@ -9,12 +9,17 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \StickyNote.createdAt, order: .reverse) private var notes: [StickyNote]
-    @State private var selectedNote: StickyNote?
+    @State private var selectedNoteIds: Set<StickyNote.ID> = []
+    @State private var confirmDeleteNotes: [StickyNote] = []
     @StateObject private var settings = AppSettings.shared
+
+    private var selectedNotes: [StickyNote] {
+        notes.filter { selectedNoteIds.contains($0.id) }
+    }
 
     var body: some View {
         NavigationSplitView {
-            List(selection: $selectedNote) {
+            List(selection: $selectedNoteIds) {
                 ForEach(notes) { note in
                     NavigationLink(value: note) {
                         NoteRowView(note: note)
@@ -28,11 +33,10 @@ struct ContentView: View {
                         }
                         Divider()
                         Button(tr("Delete"), role: .destructive) {
-                            delete(note: note)
+                            confirmDeleteNotes = selectedNotes.isEmpty ? [note] : selectedNotes
                         }
                     }
                 }
-                .onDelete(perform: deleteNotes)
             }
             .navigationTitle(tr("Sticky Notes"))
             .navigationSplitViewColumnWidth(min: 220, ideal: 260)
@@ -48,12 +52,12 @@ struct ContentView: View {
                     }
                 }
             }
+            .onDeleteCommand {
+                guard !selectedNoteIds.isEmpty else { return }
+                confirmDeleteNotes = selectedNotes
+            }
         } detail: {
-            if let note = selectedNote {
-                // .id(note.id) forces SwiftUI to destroy and rebuild the
-                // view when the user picks a different row. Without this
-                // the @State `content` carries the previous note's text
-                // into the new view and onAppear only fires once.
+            if let note = selectedNoteIds.first.flatMap({ id in notes.first(where: { $0.id == id }) }) {
                 NoteDetailView(note: note)
                     .id(note.id)
             } else {
@@ -63,6 +67,21 @@ struct ContentView: View {
         }
         .id("content-\(settings.language)")
         .environment(\.locale, Locale(identifier: settings.language))
+        .confirmationDialog(tr("Confirm Delete"), isPresented: .init(
+            get: { !confirmDeleteNotes.isEmpty },
+            set: { if !$0 { confirmDeleteNotes = [] } }
+        )) {
+            Button(tr("Delete"), role: .destructive) {
+                let targets = confirmDeleteNotes
+                confirmDeleteNotes = []
+                for note in targets { delete(note: note) }
+            }
+            Button(tr("Cancel"), role: .cancel) { confirmDeleteNotes = [] }
+        } message: {
+            Text(verbatim: confirmDeleteNotes.count == 1
+                ? String(format: tr("Are you sure you want to delete the sync service \"%@\"? This action cannot be undone.").replacingOccurrences(of: "sync service", with: "note"), confirmDeleteNotes.first?.title ?? "")
+                : String(format: tr("Delete %ld notes?"), confirmDeleteNotes.count))
+        }
     }
 
     private func addNote() {
@@ -78,15 +97,6 @@ struct ContentView: View {
             try? NoteStorageService.shared.save(content: "", for: newNote)
             try? modelContext.save()
             WindowManager.shared.showWindow(for: newNote, in: modelContext)
-        }
-    }
-
-    private func deleteNotes(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                let note = notes[index]
-                delete(note: note)
-            }
         }
     }
 

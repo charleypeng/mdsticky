@@ -371,6 +371,22 @@
         }
       }
     },
+    "Delete %ld notes?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete %ld notes?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除 %ld 条便签？"
+          }
+        }
+      }
+    },
     "Delete failed" : {
       "extractionState" : "stale",
       "localizations" : {
