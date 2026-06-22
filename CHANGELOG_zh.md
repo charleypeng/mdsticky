@@ -4,6 +4,26 @@
 
 格式基于 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)。
 
+## [1.2.0] — 2026-06-22
+
+### 新增
+- 便利贴列表：多选支持（拖拽框选、Cmd+A、Shift+单击）
+- 便利贴列表：原生 NSTableView 后端，保留 macOS 原生列表行为
+- Delete 键删除与右键菜单删除，带确认对话框
+- 突出的「设为主服务」按钮，切换前需确认
+- 设为主服务后立即触发同步
+- 主服务 toggle 开关显示强调色
+
+### 变更
+- 设为主服务后即时建立双向同步
+- 源码语言从中文迁移为英文
+
+### 修复
+- 未签名构建解决 macOS "developer cannot be verified" 提示
+- 设置窗口固定在屏幕中央
+- 管理器窗口首次启动不再显示
+- `activateIgnoringOtherApps` macOS 14+ 弃用修复
+
 ## [1.1.0] — 2026-06-22
 
 ### 新增

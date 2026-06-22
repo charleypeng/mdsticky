@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.2.0] — 2026-06-22
+
+### Added
+- Note list: multi-select with click-and-drag, Cmd+A, Shift+click
+- Note list: NSTableView backend for native macOS list behavior
+- Delete key and context menu delete with confirmation dialog
+- Prominent "Set as Primary" button with confirmation before switching
+- Immediate sync after setting a service as primary
+- Primary service toggle tinted with accent color
+
+### Changed
+- Two-way sync established immediately on setting primary service
+- Source code language migrated from zh-Hans to English
+
+### Fixed
+- macOS "developer cannot be verified" prompt fixed by building unsigned
+- Settings window centered on screen
+- Manager window hidden on first launch
+- `activateIgnoringOtherApps` deprecation on macOS 14+
+
 ## [1.1.0] — 2026-06-22
 
 ### Added
