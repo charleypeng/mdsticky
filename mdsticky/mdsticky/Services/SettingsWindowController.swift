@@ -18,7 +18,7 @@ final class SettingsWindowController {
 
     func show() {
         if let window {
-            window.center()
+            centerWindow(window)
             window.makeKeyAndOrderFront(nil)
             NSApp.activate(ignoringOtherApps: true)
             return
@@ -35,10 +35,19 @@ final class SettingsWindowController {
         window.titlebarAppearsTransparent = true
         window.titleVisibility = .hidden
         window.contentViewController = hostingController
-        window.center()
         window.isReleasedWhenClosed = false
         self.window = window
+        centerWindow(window)
         window.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
+    }
+
+    private func centerWindow(_ window: NSWindow) {
+        guard let screen = window.screen ?? NSScreen.main else { return }
+        let sf = screen.visibleFrame
+        let wf = window.frame
+        let x = sf.origin.x + (sf.width - wf.width) / 2
+        let y = sf.origin.y + (sf.height - wf.height) / 2
+        window.setFrameOrigin(NSPoint(x: x, y: y))
     }
 }

@@ -1072,6 +1072,23 @@
         }
       }
     },
+    "Set \"%@\" as the primary sync service? It will sync bidirectionally in real time." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set \"%@\" as the primary sync service? It will sync bidirectionally in real time."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将「%@」设为主用同步服务？它将进行实时双向同步。"
+          }
+        }
+      }
+    },
     "Set as Primary" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -1085,22 +1102,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "设为主"
-          }
-        }
-      }
-    },
-    "Set \"%@\" as the primary sync service? It will sync bidirectionally in real time." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Set \"%@\" as the primary sync service? It will sync bidirectionally in real time."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "将「%@」设为主用同步服务？它将进行实时双向同步。"
           }
         }
       }
