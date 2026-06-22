@@ -30,6 +30,7 @@ struct NoteTableView: NSViewRepresentable {
         tableView.floatsGroupRows = false
         tableView.headerView = nil
         tableView.focusRingType = .none
+        tableView.menu = NSMenu()
 
         let col = NSTableColumn(identifier: .noteRow)
         col.isEditable = false
