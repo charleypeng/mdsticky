@@ -227,6 +227,7 @@ struct SettingsView: View {
                 .toggleStyle(.switch)
                 .controlSize(.small)
                 .labelsHidden()
+                .tint(config.isPrimary ? Color.accentColor : nil)
             }
 
             Divider()
