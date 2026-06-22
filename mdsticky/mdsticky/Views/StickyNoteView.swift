@@ -55,11 +55,6 @@ struct StickyNoteView: View {
 
     private var titleBar: some View {
         HStack {
-            Text(note.title)
-                .font(.system(size: 11, weight: .semibold))
-                .foregroundStyle(textColor)
-                .lineLimit(1)
-
             Spacer()
 
             HStack(spacing: 6) {
