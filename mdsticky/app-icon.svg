@@ -1,18 +1,45 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="none">
-  <!-- Light background base for the app icon shape -->
-  <rect width="1024" height="1024" rx="225" fill="#F0ECE5"/>
-  <!-- Subtle shadow behind sticky note -->
-  <rect x="82" y="84" width="860" height="860" rx="52" fill="rgba(0,0,0,0.08)"/>
-  <!-- Yellow sticky note (scaled down with ~8% padding) -->
-  <rect x="82" y="82" width="860" height="860" rx="52" fill="#FFE066"/>
-  <!-- Folded corner -->
-  <path d="M774 82 L774 146 L838 210 L774 210 L774 82 Z" fill="#EDD055"/>
-  <!-- White content area inside the note -->
-  <rect x="164" y="168" width="696" height="636" rx="12" fill="#FFFFFF"/>
-  <!-- Text lines -->
-  <line x1="224" y1="248" x2="760" y2="248" stroke="#3A2E1F" stroke-width="20" stroke-linecap="round"/>
-  <line x1="224" y1="316" x2="760" y2="316" stroke="#3A2E1F" stroke-width="20" stroke-linecap="round"/>
-  <line x1="224" y1="384" x2="608" y2="384" stroke="#3A2E1F" stroke-width="20" stroke-linecap="round"/>
-  <line x1="224" y1="452" x2="760" y2="452" stroke="#3A2E1F" stroke-width="20" stroke-linecap="round"/>
-  <line x1="224" y1="520" x2="544" y2="520" stroke="#3A2E1F" stroke-width="20" stroke-linecap="round"/>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F5F0EB"/>
+      <stop offset="1" stop-color="#E8E0D6"/>
+    </linearGradient>
+    <linearGradient id="note" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF3B8"/>
+      <stop offset="1" stop-color="#FFD633"/>
+    </linearGradient>
+    <linearGradient id="fold" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#E8C44A"/>
+      <stop offset="1" stop-color="#F5D96A"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="24" flood-color="#000" flood-opacity="0.12"/>
+    </filter>
+    <filter id="innerShadow">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6" result="blur"/>
+      <feOffset dx="0" dy="2" result="offsetBlur"/>
+      <feComposite in="SourceGraphic" in2="offsetBlur" operator="over"/>
+    </filter>
+  </defs>
+
+  <rect width="1024" height="1024" rx="225" fill="url(#bg)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="82" y="82" width="860" height="860" rx="48" fill="url(#note)"/>
+
+    <path d="M774 82 L774 146 L838 210 L774 210 Z" fill="url(#fold)"/>
+    <path d="M774 146 L838 210 L774 210 Z" fill="#D9B545" opacity="0.3"/>
+  </g>
+
+  <rect x="160" y="164" width="704" height="640" rx="16" fill="#FFFEF7"/>
+  <rect x="160" y="164" width="704" height="640" rx="16" stroke="#E8E0D6" stroke-width="2" fill="none"/>
+
+  <line x1="224" y1="240" x2="760" y2="240" stroke="#3A2E1F" stroke-width="10" stroke-linecap="round" opacity="0.85"/>
+  <line x1="224" y1="300" x2="680" y2="300" stroke="#3A2E1F" stroke-width="10" stroke-linecap="round" opacity="0.5"/>
+  <line x1="224" y1="360" x2="760" y2="360" stroke="#3A2E1F" stroke-width="10" stroke-linecap="round" opacity="0.85"/>
+  <line x1="224" y1="420" x2="600" y2="420" stroke="#3A2E1F" stroke-width="10" stroke-linecap="round" opacity="0.5"/>
+  <line x1="224" y1="480" x2="720" y2="480" stroke="#3A2E1F" stroke-width="10" stroke-linecap="round" opacity="0.85"/>
+  <line x1="224" y1="540" x2="440" y2="540" stroke="#3A2E1F" stroke-width="10" stroke-linecap="round" opacity="0.5"/>
+  <line x1="224" y1="600" x2="760" y2="600" stroke="#3A2E1F" stroke-width="10" stroke-linecap="round" opacity="0.85"/>
+  <line x1="224" y1="660" x2="540" y2="660" stroke="#3A2E1F" stroke-width="10" stroke-linecap="round" opacity="0.5"/>
 </svg>

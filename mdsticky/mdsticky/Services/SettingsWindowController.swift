@@ -18,6 +18,7 @@ final class SettingsWindowController {
 
     func show() {
         if let window {
+            window.center()
             window.makeKeyAndOrderFront(nil)
             NSApp.activate(ignoringOtherApps: true)
             return
@@ -33,8 +34,8 @@ final class SettingsWindowController {
         window.title = "Settings"
         window.titlebarAppearsTransparent = true
         window.titleVisibility = .hidden
-        window.center()
         window.contentViewController = hostingController
+        window.center()
         window.isReleasedWhenClosed = false
         self.window = window
         window.makeKeyAndOrderFront(nil)

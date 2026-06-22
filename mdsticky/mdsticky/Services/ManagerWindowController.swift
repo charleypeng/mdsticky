@@ -12,6 +12,7 @@ final class ManagerWindowController {
 
     func show() {
         if let window {
+            window.center()
             window.makeKeyAndOrderFront(nil)
             NSApp.activate(ignoringOtherApps: true)
             return
@@ -29,8 +30,8 @@ final class ManagerWindowController {
             defer: false
         )
         window.title = tr("Sticky Notes")
-        window.center()
         window.contentViewController = hostingController
+        window.center()
         window.isReleasedWhenClosed = false
         self.window = window
         window.makeKeyAndOrderFront(nil)
