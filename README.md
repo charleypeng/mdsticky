@@ -2,6 +2,15 @@
 
 A macOS sticky-notes app where each note is a floating, color-coded window with built-in Markdown editing and rendering. Notes are stored as plain `.md` files on disk and synced to your own WebDAV / local folder / SMB share.
 
+<p align="center">
+  <img src="docs/screenshots/2026-07-01%2015.40.35.png" width="280" alt="Floating note"/>
+  <img src="docs/screenshots/2026-07-01%2015.41.42.png" width="420" alt="Settings"/>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/2026-07-01%2015.41.11.png" width="720" alt="Management window"/>
+</p>
+
 ## Features
 
 - **Floating color-coded notes.** Each note is its own window. Pick a color from the palette, drag the note anywhere on screen, pin it to stay on top, and resize freely.
@@ -15,7 +24,7 @@ A macOS sticky-notes app where each note is a floating, color-coded window with 
 
 ## Requirements
 
-- macOS 15.7 or later
+- macOS 14.0 or later
 - Xcode 16 / 26 (Swift 5 toolchain)
 
 ## Build

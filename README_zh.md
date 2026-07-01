@@ -2,6 +2,15 @@
 
 一款 macOS 便利贴应用：每个便利贴都是一个独立的悬浮彩色窗口，自带 Markdown 编辑与渲染。笔记以纯 `.md` 文件保存在本地，并可同步到自己的 WebDAV / 本地目录 / SMB 共享。
 
+<p align="center">
+  <img src="docs/screenshots/2026-07-01%2015.40.35.png" width="280" alt="悬浮便利贴"/>
+  <img src="docs/screenshots/2026-07-01%2015.41.42.png" width="420" alt="设置"/>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/2026-07-01%2015.41.11.png" width="720" alt="管理窗口"/>
+</p>
+
 ## 功能
 
 - **彩色悬浮便利贴**。每个便利贴都是一个独立窗口。从调色板选色，拖到屏幕任意位置，可置顶保持可见，可自由缩放。
@@ -15,7 +24,7 @@
 
 ## 系统要求
 
-- macOS 15.7 或更高版本
+- macOS 14.0 或更高版本
 - Xcode 16 / 26（Swift 5 工具链）
 
 ## 构建
