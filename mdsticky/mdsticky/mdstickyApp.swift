@@ -141,7 +141,6 @@ struct mdstickyApp: App {
 }
 
 struct MenuBarView: View {
-    @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @StateObject private var syncProvider = SyncServiceProvider.shared
 
@@ -175,6 +174,7 @@ struct MenuBarView: View {
     }
 
     private func createNote() {
+        let context = mdstickyApp.sharedContainer.mainContext
         let now = Date()
         let fileName = NoteStorageService.generateFileName(date: now)
         let newNote = StickyNote(
@@ -182,9 +182,9 @@ struct MenuBarView: View {
             contentFileName: fileName,
             createdAt: now
         )
-        modelContext.insert(newNote)
+        context.insert(newNote)
         try? NoteStorageService.shared.save(content: "", for: newNote)
-        try? modelContext.save()
-        WindowManager.shared.showWindow(for: newNote, in: modelContext)
+        try? context.save()
+        WindowManager.shared.showWindow(for: newNote, in: context)
     }
 }
