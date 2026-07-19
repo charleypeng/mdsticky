@@ -53,7 +53,7 @@ struct mdstickyApp: App {
 
     private func createFirstNote(in context: ModelContext) {
         let now = Date()
-        let fileName = NoteStorageService.generateFileName(date: now)
+        let fileName = NoteStorageService.uniqueFileName(date: now)
         let newNote = StickyNote(
             title: fileName.replacingOccurrences(of: ".md", with: ""),
             contentFileName: fileName,
@@ -127,7 +127,7 @@ struct mdstickyApp: App {
     private func newStickyNote() {
         let context = Self.sharedContainer.mainContext
         let now = Date()
-        let fileName = NoteStorageService.generateFileName(date: now)
+        let fileName = NoteStorageService.uniqueFileName(date: now)
         let newNote = StickyNote(
             title: fileName.replacingOccurrences(of: ".md", with: ""),
             contentFileName: fileName,
@@ -176,7 +176,7 @@ struct MenuBarView: View {
     private func createNote() {
         let context = mdstickyApp.sharedContainer.mainContext
         let now = Date()
-        let fileName = NoteStorageService.generateFileName(date: now)
+        let fileName = NoteStorageService.uniqueFileName(date: now)
         let newNote = StickyNote(
             title: fileName.replacingOccurrences(of: ".md", with: ""),
             contentFileName: fileName,

@@ -39,6 +39,19 @@ final class NoteStorageService {
         return "\(formatter.string(from: date)).md"
     }
 
+    static func uniqueFileName(date: Date = Date()) -> String {
+        let base = generateFileName(date: date).replacingOccurrences(of: ".md", with: "")
+        let dir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+            .appendingPathComponent("mdsticky/notes", isDirectory: true)
+        var name = "\(base).md"
+        var counter = 1
+        while FileManager.default.fileExists(atPath: dir.appendingPathComponent(name).path) {
+            name = "\(base)-\(counter).md"
+            counter += 1
+        }
+        return name
+    }
+
     func save(content: String, for note: StickyNote) throws {
         try ensureDirectoriesExist()
         let url = fileURL(for: note)

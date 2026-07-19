@@ -80,7 +80,7 @@ struct ContentView: View {
     private func addNote() {
         withAnimation {
             let now = Date()
-            let fileName = NoteStorageService.generateFileName(date: now)
+            let fileName = NoteStorageService.uniqueFileName(date: now)
             let newNote = StickyNote(
                 title: fileName.replacingOccurrences(of: ".md", with: ""),
                 contentFileName: fileName,
